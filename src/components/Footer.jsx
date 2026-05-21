@@ -12,13 +12,16 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* LeBron James minimal style crown with K and S pillars & 3 colored stones */}
+          {/* Symmetrical K/S Monogram Crown with 3 Diamond Cut Stone Jewels */}
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 12L10 6L14 12H6Z" fill="#e74c3c" />
-            <path d="M13 9L16 3L19 9H13Z" fill="#3498db" />
-            <path d="M18 12L22 6L26 12H18Z" fill="#f1c40f" />
-            <path d="M8 14V26M8 20L13 14M8 20L13 26" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M19 14H24V20H19V26H24" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 4L15 7L12 10L9 7Z" fill="#e74c3c" />
+            <path d="M17 4L20 7L17 10L14 7Z" fill="#3498db" />
+            <path d="M22 4L25 7L22 10L19 7Z" fill="#f1c40f" />
+            <path d="M12 12V9M17 12V9M22 12V9" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M12 12V24" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 18L17 12H22V18H17V24H22" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 18L17 24" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M9 26H25" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
           KHAAN<span>STONE</span>
         </div>

@@ -30,27 +30,29 @@ const servicesList = [
 
 export default function Services() {
   return (
-    <section id="services" className="section reveal">
-      <div className="section-header">
-        <span className="section-subtitle">Excellence in Masonry</span>
-        <h2 className="section-title">Architectural Masonry Services</h2>
-      </div>
+    <section id="services" className="services-section reveal">
+      <div className="section services-container" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+        <div className="section-header">
+          <span className="section-subtitle">Excellence in Masonry</span>
+          <h2 className="section-title">Architectural Masonry Services</h2>
+        </div>
 
-      <div className="grid-2">
-        {servicesList.map((service, idx) => (
-          <div key={idx} className={`glass-panel service-card service-card-${idx}`}>
-            <div className="service-icon">
-              {service.icon}
+        <div className="grid-2">
+          {servicesList.map((service, idx) => (
+            <div key={idx} className={`glass-panel service-card service-card-${idx}`}>
+              <div className="service-icon">
+                {service.icon}
+              </div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <ul className="service-list">
+                {service.items.map((item, itemIdx) => (
+                  <li key={itemIdx}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
-            <ul className="service-list">
-              {service.items.map((item, itemIdx) => (
-                <li key={itemIdx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
