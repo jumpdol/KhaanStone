@@ -1,30 +1,31 @@
 import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Statement from './components/Statement';
 import Services from './components/Services';
-import About from './components/About';
 import Portfolio from './components/Portfolio';
-import Estimator from './components/Estimator';
+import Process from './components/Process';
+import About from './components/About';
+import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './App.css';
 
 export default function App() {
-  // Intersection Observer for scroll-fade-in animations
+  // Intersection Observer for smooth scroll-fade-in animations
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
     
     const observerOptions = {
       root: null,
-      threshold: 0.1, // Trigger when 10% of the element is visible
-      rootMargin: '0px 0px -50px 0px' // Trigger slightly before the element fully enters
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
     };
 
     const observer = new IntersectionObserver((entries, observerInstance) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          // Once animated, we don't need to observe it anymore
           observerInstance.unobserve(entry.target);
         }
       });
@@ -42,15 +43,19 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <div className="site-wrapper">
       <Navbar />
-      <Hero />
-      <Services />
-      <About />
-      <Portfolio />
-      <Estimator />
-      <Contact />
+      <main>
+        <Hero />
+        <Statement />
+        <Services />
+        <Portfolio />
+        <Process />
+        <About />
+        <Testimonials />
+        <Contact />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

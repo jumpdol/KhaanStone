@@ -1,55 +1,122 @@
 import React from 'react';
-import { Layers, Landmark, Milestone, Construction } from 'lucide-react';
+import { Layers, Landmark, Milestone, Sparkles, ArrowUpRight, Check } from 'lucide-react';
 
-const servicesList = [
+const services = [
   {
-    icon: <Layers size={24} />,
-    title: 'Block Fences & Retaining Walls',
-    description: 'Structural and decorative block masonry tailored for the Pacific Northwest climate. We build heavy-duty retaining walls and perimeter block fences that secure and elevate your land.',
-    items: ['Retaining wall engineering support', 'Segmental concrete blocks', 'Perimeter block fences', 'Slope stabilization']
+    id: 'retaining-walls',
+    image: '/houston2.jpg',
+    badge: 'Structural Engineering',
+    title: 'Engineered Retaining Walls & Block Systems',
+    description: 'Heavy-duty segmental concrete block walls, gravity retaining structures, and structural slope stabilization tailored for Vancouver’s hillside topographies and heavy precipitation.',
+    features: [
+      'Engineered geogrid reinforcement & drainage backfill',
+      'Architectural segmental retaining blocks & caps',
+      'Perimeter acoustic security fences & terraced walls',
+      'Municipal permit assistance & laser-level site grading'
+    ]
   },
   {
-    icon: <Landmark size={24} />,
-    title: 'Entryway Stonework & Stairs',
-    description: 'First impressions matter. We craft elegant entranceways using premium slate, granite, and natural stone. Perfect for front porch tiles, masonry stairs, and structural pillars.',
-    items: ['Natural stone staircases', 'Porch & entryway stone tiling', 'Structural stone pillars', 'Grand architectural columns']
+    id: 'stone-stairs',
+    image: '/houston3.jpg',
+    badge: 'Architectural Entryways',
+    title: 'Custom Stone Steps & Grand Entranceways',
+    description: 'Make an unforgettable entrance. We precision-cut and install premium natural slate, basalt, and flamed granite steps designed for long-term slip resistance and architectural elegance.',
+    features: [
+      'Solid granite & flamed basalt step treads',
+      'Natural slate porch tiling & landing cladding',
+      'Integrated low-voltage step illumination channels',
+      'Mortared stone pillars & matching architectural caps'
+    ]
   },
   {
-    icon: <Milestone size={24} />,
-    title: 'Patios & Flagstone Pathways',
-    description: 'Transform your outdoor living. We lay custom flagstone pathways and outdoor patios using organic, irregular stone cuts for a timeless, natural-looking landscape design.',
-    items: ['Irregular flagstone walkways', 'Slate & basalt patios', 'Integrated fire pits', 'Joint compound sealing']
+    id: 'flagstone-patios',
+    image: '/houston4.jpg',
+    badge: 'Outdoor Living',
+    title: 'Luxury Flagstone Patios & Courtyard Walkways',
+    description: 'Transform outdoor spaces into timeless living sanctuaries. Using hand-dressed organic flagstone, thermal bluestone, and basalt paving laid with permeable polymer joints.',
+    features: [
+      'Organic hand-cut flagstone & irregular slate paving',
+      'Permeable joint compounds & frost-resistant sub-bases',
+      'Seamless transition from indoor living to patio landscapes',
+      'Integrated natural stone fire pits & garden borders'
+    ]
   },
   {
-    icon: <Construction size={24} />,
-    title: 'Custom Rock Masonry',
-    description: 'Bespoke masonry solutions for unique projects. From natural rock veneering for modern house facades to custom indoor/outdoor brick and stone fireplaces.',
-    items: ['Natural stone veneer siding', 'Stone fireplace wraps', 'Masonry restoration', 'Custom stone detailing']
+    id: 'stone-veneer',
+    image: '/houston6.jpg',
+    badge: 'Exterior & Interior Masonry',
+    title: 'Natural Stone Veneers & Custom Feature Masonry',
+    description: 'Enhance your home’s facade or interior with authentic natural stone cladding. From full-depth stone masonry to thin veneer siding, outdoor kitchens, and modern stone fireplaces.',
+    features: [
+      'Exterior architectural stone siding & facades',
+      'Custom outdoor fireplaces, barbecues & chimneys',
+      'Basalt, limestone, quartzite & granite veneer options',
+      'Stone repair, mortar repointing & weatherproofing sealing'
+    ]
   }
 ];
 
 export default function Services() {
+  const handleScrollToContact = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('contact');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="services" className="services-section reveal">
-      <div className="section services-container" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-        <div className="section-header">
-          <span className="section-subtitle">Excellence in Masonry</span>
-          <h2 className="section-title">Architectural Masonry Services</h2>
+      <div className="services-container">
+        {/* Section Header */}
+        <div className="section-header-row">
+          <div className="section-header-left">
+            <span className="section-eyebrow">OUR CAPABILITIES</span>
+            <h2 className="section-title-large">
+              Architectural Stonework <br />
+              <span className="text-serif-italic">Engineered for Generations.</span>
+            </h2>
+          </div>
+          <div className="section-header-right">
+            <p className="section-header-desc">
+              From residential estates in West Vancouver to commercial landscape developments in Vancouver and the Sea-to-Sky, we deliver full-scope stone masonry and landscape construction with uncompromising standards.
+            </p>
+          </div>
         </div>
 
-        <div className="grid-2">
-          {servicesList.map((service, idx) => (
-            <div key={idx} className={`glass-panel service-card service-card-${idx}`}>
-              <div className="service-icon">
-                {service.icon}
+        {/* Services 2x2 Rich Cards Grid */}
+        <div className="services-luxury-grid">
+          {services.map((service, index) => (
+            <div key={service.id} className="service-luxury-card group">
+              <div className="service-card-image-wrap">
+                <img 
+                  src={service.image} 
+                  alt={service.title} 
+                  className="service-card-image"
+                  loading="lazy"
+                />
+                <span className="service-card-badge">{service.badge}</span>
+                <span className="service-number">0{index + 1}</span>
               </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <ul className="service-list">
-                {service.items.map((item, itemIdx) => (
-                  <li key={itemIdx}>{item}</li>
-                ))}
-              </ul>
+
+              <div className="service-card-content">
+                <h3 className="service-card-title">{service.title}</h3>
+                <p className="service-card-desc">{service.description}</p>
+                
+                <ul className="service-card-checklist">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="checklist-item">
+                      <Check size={16} className="checklist-icon" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="service-card-action">
+                  <a href="#contact" className="service-link-cta" onClick={handleScrollToContact}>
+                    <span>Inquire About This Service</span>
+                    <ArrowUpRight size={16} />
+                  </a>
+                </div>
+              </div>
             </div>
           ))}
         </div>
