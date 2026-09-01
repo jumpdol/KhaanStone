@@ -120,8 +120,8 @@ export default function Navbar() {
           </a>
 
           {/* Mobile Menu Trigger */}
-          <button 
-            className="mobile-menu-trigger" 
+          <button
+            className="mobile-menu-trigger"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle navigation menu"
           >

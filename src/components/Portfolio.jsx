@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, ZoomIn, MapPin, Layers, ArrowRight, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ZoomIn, MapPin, Layers, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const portfolioItems = [
   {
@@ -120,18 +120,27 @@ export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('All Projects');
   const [activeProject, setActiveProject] = useState(null);
 
+  useEffect(() => {
+    if (activeProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeProject]);
+
   const filteredItems = selectedCategory === 'All Projects'
     ? portfolioItems
     : portfolioItems.filter(item => item.category === selectedCategory);
 
   const openLightbox = (item) => {
     setActiveProject(item);
-    document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     setActiveProject(null);
-    document.body.style.overflow = '';
   };
 
   return (
@@ -147,17 +156,19 @@ export default function Portfolio() {
             Explore recent architectural stone masonry, structural retaining walls, and custom landscape installations across British Columbia.
           </p>
 
-          {/* Category Filter Tabs */}
-          <div className="portfolio-filter-bar">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`filter-tab ${selectedCategory === cat ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Category Filter Tabs with Horizontal Swipe on Mobile */}
+          <div className="portfolio-filter-container">
+            <div className="portfolio-filter-bar">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`filter-tab ${selectedCategory === cat ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -189,7 +200,7 @@ export default function Portfolio() {
                     <p className="portfolio-card-material">{item.material}</p>
                     <div className="portfolio-inspect-cta">
                       <ZoomIn size={16} />
-                      <span>View Project Details</span>
+                      <span>Tap to Inspect Project</span>
                     </div>
                   </div>
                 </div>
@@ -204,7 +215,7 @@ export default function Portfolio() {
             <h3>Have an ambitious architectural stone or landscape project?</h3>
             <p>We review blueprints, site topography, and material options with builders and property owners.</p>
           </div>
-          <a href="#contact" className="btn-luxury-primary">
+          <a href="#contact" className="btn-luxury-primary banner-btn">
             <span>Discuss Your Project</span>
             <ArrowRight size={16} />
           </a>
@@ -216,7 +227,7 @@ export default function Portfolio() {
         <div className="lightbox-backdrop" onClick={closeLightbox}>
           <div className="lightbox-modal animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <button className="lightbox-close-btn" onClick={closeLightbox} aria-label="Close modal">
-              <X size={22} />
+              <X size={20} />
             </button>
 
             <div className="lightbox-body">
@@ -267,7 +278,7 @@ export default function Portfolio() {
                     }}
                   >
                     <span>Request Estimate for Similar Project</span>
-                    <ArrowRight size={16} />
+                    <ArrowUpRight size={16} />
                   </a>
                 </div>
               </div>
