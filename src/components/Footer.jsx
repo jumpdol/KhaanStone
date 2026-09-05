@@ -7,24 +7,33 @@ export default function Footer({ onNavClick }) {
       <div className="footer-top-strip">
         <div className="footer-container">
           <div className="footer-brand-col">
-            <span className="footer-brand-name">KHAAN STONE</span>
-            <span className="footer-brand-tagline">Hardscape &amp; Stone Construction • Metro Vancouver &amp; Sea-to-Sky</span>
+            <div className="footer-brand-logo-wrap">
+              <img 
+                src="/logo/logo.svg" 
+                alt="Khaan Stone" 
+                className="footer-brand-logo-img" 
+              />
+              <div className="footer-brand-text">
+                <span className="footer-brand-name">KHAAN STONE</span>
+                <span className="footer-brand-tagline">Hardscape &amp; Stone Construction • Vancouver, Abbotsford, Chilliwack &amp; Fraser Valley</span>
+              </div>
+            </div>
           </div>
 
           <div className="footer-contact-items">
-            <a href="tel:6045550190" className="footer-contact-link">
+            <a href="tel:2368632328" className="footer-contact-link">
               <Phone size={14} />
-              <span>(604) 555-0190</span>
+              <span>(236) 863-2328</span>
             </a>
             <span className="footer-bullet">•</span>
-            <a href="mailto:info@khaanstone.ca" className="footer-contact-link">
+            <a href="mailto:khaanstone@gmail.com" className="footer-contact-link">
               <Mail size={14} />
-              <span>info@khaanstone.ca</span>
+              <span>khaanstone@gmail.com</span>
             </a>
             <span className="footer-bullet">•</span>
             <span className="footer-location-text">
               <MapPin size={14} />
-              <span>Vancouver, BC</span>
+              <span>Vancouver &amp; Fraser Valley, BC</span>
             </span>
           </div>
         </div>

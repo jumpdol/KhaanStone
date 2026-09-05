@@ -49,7 +49,7 @@ export default function App() {
           <About onContactClick={() => setActiveView('contact')} />
         )}
 
-        {activeView === 'systems' && (
+        {(activeView === 'hardscape' || activeView === 'services' || activeView === 'systems') && (
           <Services onContactClick={() => setActiveView('contact')} />
         )}
 

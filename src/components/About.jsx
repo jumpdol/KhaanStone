@@ -19,29 +19,14 @@ export default function About({ onContactClick }) {
             <h2 className="about-heading-accent">INTEGRITY &amp; MASTERY</h2>
             <div className="about-narrative">
               <p>
-                Since our inception, Khaan Stone has progressively become one of British Columbia’s premier leaders in high-end architectural stone masonry and engineered landscape structures.
+                Since our inception, Khaan Stone has progressively become one of British Columbia’s premier leaders in high-end hardscape construction and custom stone masonry.
               </p>
               <p>
-                From private estate courtyards in West Vancouver and Shaughnessy to large-scale multi-family residential and landmark commercial developments, our performance speaks for itself. We collaborate seamlessly with leading architects, geotechnical engineers, and premier general contractors.
+                From private residential courtyards in West Vancouver, Vancouver, Abbotsford, and Chilliwack to large-scale commercial developments across the Lower Mainland and Fraser Valley, our performance speaks for itself. We collaborate seamlessly with leading architects, builders, and general contractors.
               </p>
               <p>
                 Each project brings unique terrain and architectural requirements. Our goal is to translate the vision into timeless stone structures built to endure Pacific Northwest weather for generations.
               </p>
-            </div>
-
-            <div className="about-metrics-row">
-              <div className="about-metric-item">
-                <span className="about-metric-val">15+</span>
-                <span className="about-metric-lbl">Years in Metro Vancouver</span>
-              </div>
-              <div className="about-metric-item">
-                <span className="about-metric-val">500+</span>
-                <span className="about-metric-lbl">Completed Projects</span>
-              </div>
-              <div className="about-metric-item">
-                <span className="about-metric-val">$5M</span>
-                <span className="about-metric-lbl">Commercial Liability</span>
-              </div>
             </div>
           </div>
 
@@ -53,7 +38,7 @@ export default function About({ onContactClick }) {
                 className="about-feature-img"
               />
               <div className="about-image-caption">
-                <span>Hand-chiseled architectural stone masonry</span>
+                <span>Hand-chiseled architectural stone &amp; hardscape masonry</span>
               </div>
             </div>
           </div>
@@ -93,7 +78,7 @@ export default function About({ onContactClick }) {
 
         {/* Action Callout */}
         <div className="subpage-action-banner">
-          <h3>Ready to discuss your architectural stone project?</h3>
+          <h3>Ready to discuss your hardscape or stone project?</h3>
           <button 
             className="btn-luxury-primary"
             onClick={onContactClick}
