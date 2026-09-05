@@ -1,95 +1,107 @@
 import React from 'react';
-import { Award, Shield, CheckCircle, ArrowRight } from 'lucide-react';
+import { Shield, Award, CheckCircle2, MapPin } from 'lucide-react';
 
-export default function About() {
-  const handleScrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
+export default function About({ onContactClick }) {
   return (
-    <section id="about" className="about-section reveal">
-      <div className="about-container">
-        <div className="about-layout-grid">
-          {/* Left Column: Rich Imagery Collage */}
-          <div className="about-visual-column">
-            <div className="about-image-primary-wrap">
-              <img 
-                src="/houston7.jpg" 
-                alt="Khaan Stone Craftsmanship & Stonework Heritage" 
-                className="about-image-primary"
-                loading="lazy"
-              />
-              <div className="about-experience-badge">
-                <span className="badge-num">20+</span>
-                <span className="badge-txt">Years of Architectural Stonework</span>
-              </div>
+    <div className="subpage-view about-page animate-fade-in">
+      {/* Page Header */}
+      <div className="subpage-hero">
+        <div className="subpage-hero-inner">
+          <span className="subpage-kicker">OUR HERITAGE &amp; VALUES</span>
+          <h1 className="subpage-title">About Khaan Stone</h1>
+        </div>
+      </div>
+
+      <div className="subpage-content-container">
+        {/* Split Section: Integrity */}
+        <div className="about-split-grid">
+          <div className="about-text-column">
+            <h2 className="about-heading-accent">INTEGRITY &amp; MASTERY</h2>
+            <div className="about-narrative">
+              <p>
+                Since our inception, Khaan Stone has progressively become one of British Columbia’s premier leaders in high-end architectural stone masonry and engineered landscape structures.
+              </p>
+              <p>
+                From private estate courtyards in West Vancouver and Shaughnessy to large-scale multi-family residential and landmark commercial developments, our performance speaks for itself. We collaborate seamlessly with leading architects, geotechnical engineers, and premier general contractors.
+              </p>
+              <p>
+                Each project brings unique terrain and architectural requirements. Our goal is to translate the vision into timeless stone structures built to endure Pacific Northwest weather for generations.
+              </p>
             </div>
 
-            <div className="about-image-secondary-wrap">
-              <img 
-                src="/houston8.jpg" 
-                alt="Natural stone steps installation Vancouver" 
-                className="about-image-secondary"
-                loading="lazy"
-              />
+            <div className="about-metrics-row">
+              <div className="about-metric-item">
+                <span className="about-metric-val">15+</span>
+                <span className="about-metric-lbl">Years in Metro Vancouver</span>
+              </div>
+              <div className="about-metric-item">
+                <span className="about-metric-val">500+</span>
+                <span className="about-metric-lbl">Completed Projects</span>
+              </div>
+              <div className="about-metric-item">
+                <span className="about-metric-val">$5M</span>
+                <span className="about-metric-lbl">Commercial Liability</span>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Narrative & Credentials */}
-          <div className="about-content-column">
-            <span className="section-eyebrow">ABOUT KHAAN STONE</span>
-            <h2 className="section-title-large">
-              West Coast Heritage, <br />
-              <span className="text-serif-italic">Uncompromising Stonework.</span>
-            </h2>
-
-            <p className="about-lead-text">
-              Based in Metro Vancouver, <strong>Khaan Stone</strong> is a specialized architectural stone masonry and landscape construction contractor dedicated to crafting permanent, inspiring outdoor spaces.
-            </p>
-
-            <p className="about-body-text">
-              From steep West Vancouver hillsides requiring heavy-duty engineered block retaining walls to historic Point Grey residences desiring hand-dressed slate steps, we bridge the gap between structural civil engineering and artisanal masonry craftsmanship.
-            </p>
-
-            <div className="about-pillars-list">
-              <div className="about-pillar-item">
-                <div className="pillar-check"><CheckCircle size={18} /></div>
-                <div>
-                  <h4 className="pillar-heading">Red Seal Masonry Craftsmanship</h4>
-                  <p className="pillar-sub">Every stone is chiseled, leveled, and bonded with time-tested European and West Coast techniques.</p>
-                </div>
-              </div>
-
-              <div className="about-pillar-item">
-                <div className="pillar-check"><CheckCircle size={18} /></div>
-                <div>
-                  <h4 className="pillar-heading">Engineered for BC Seismic & Rain Loads</h4>
-                  <p className="pillar-sub">Deep drainage gravel trenches, frost-depth foundations, and geogrid stabilization prevent shifting or cracking.</p>
-                </div>
-              </div>
-
-              <div className="about-pillar-item">
-                <div className="pillar-check"><CheckCircle size={18} /></div>
-                <div>
-                  <h4 className="pillar-heading">Complete Commercial & Residential Licensure</h4>
-                  <p className="pillar-sub">$5,000,000 commercial general liability insurance, full WorkSafeBC coverage, and bonded status.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="about-cta-row">
-              <button className="btn-luxury-primary" onClick={() => handleScrollTo('contact')}>
-                <span>Schedule a Site Meeting</span>
-                <ArrowRight size={16} />
-              </button>
-              <div className="about-location-tag">
-                Serving Metro Vancouver & Sea-to-Sky
+          <div className="about-image-column">
+            <div className="about-image-frame">
+              <img 
+                src="/houston7.jpg" 
+                alt="Khaan Stone Craftsmanship" 
+                className="about-feature-img"
+              />
+              <div className="about-image-caption">
+                <span>Hand-chiseled architectural stone masonry</span>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Safety & Standards Section */}
+        <div className="about-safety-card">
+          <div className="safety-card-inner">
+            <div className="safety-header">
+              <Shield className="safety-icon" size={32} />
+              <div>
+                <h3 className="safety-title">Safety &amp; Engineering Standards</h3>
+                <p className="safety-subtitle">Uncompromising commitment to site safety, structural codes, and Red Seal craftsmanship.</p>
+              </div>
+            </div>
+
+            <div className="safety-points-grid">
+              <div className="safety-point">
+                <CheckCircle2 size={18} className="safety-check" />
+                <span>WorkSafeBC compliant with zero-compromise site protocols.</span>
+              </div>
+              <div className="safety-point">
+                <CheckCircle2 size={18} className="safety-check" />
+                <span>Engineered sub-base drainage and seismic anchoring on all walls.</span>
+              </div>
+              <div className="safety-point">
+                <CheckCircle2 size={18} className="safety-check" />
+                <span>Direct collaboration with municipal building inspectors and structural engineers.</span>
+              </div>
+              <div className="safety-point">
+                <CheckCircle2 size={18} className="safety-check" />
+                <span>All materials locally sourced from sustainable BC and North American quarries.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Callout */}
+        <div className="subpage-action-banner">
+          <h3>Ready to discuss your architectural stone project?</h3>
+          <button 
+            className="btn-luxury-primary"
+            onClick={onContactClick}
+          >
+            <span>Request Site Consultation</span>
+          </button>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

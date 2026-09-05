@@ -1,207 +1,175 @@
-import React, { useState, useEffect } from 'react';
-import { X, ZoomIn, MapPin, Layers, ArrowRight, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, ChevronLeft, ChevronRight, Maximize2, ArrowRight } from 'lucide-react';
 
-const portfolioItems = [
+export const PROJECTS = [
   {
     id: 1,
+    title: 'Abcellera Headquarters',
+    location: 'Vancouver, BC',
+    category: 'cladding',
+    categoryLabel: 'Architectural Cladding',
     image: '/houston1.jpg',
-    category: 'Patios & Walkways',
-    tag: 'Estate Patio',
-    title: 'Waterfront Estate Flagstone Terraces',
-    location: 'West Vancouver, BC',
-    material: 'Hand-Dressed Natural Slate & Basalt',
-    scope: 'Multi-level outdoor patio, custom retaining stone boundary, integrated garden steps',
-    aspect: 'landscape'
+    description: 'Precision dimensioned basalt and granite stone installation with engineered structural anchoring.'
   },
   {
     id: 2,
+    title: 'Empire Landmark Estate',
+    location: 'West Vancouver, BC',
+    category: 'retaining',
+    categoryLabel: 'Structural Retaining Wall',
     image: '/houston2.jpg',
-    category: 'Retaining Walls',
-    tag: 'Engineered Wall',
-    title: 'Tiered Segmental Slope Stabilization',
-    location: 'North Vancouver, BC',
-    material: 'High-Strength Architectural Concrete Blocks',
-    scope: '3-tier engineered structural retaining system with geogrid reinforcement and drainage core',
-    aspect: 'portrait'
+    description: 'Tiered mountain granite retaining wall system engineered for steep coastal slope stabilization.'
   },
   {
     id: 3,
+    title: 'Casa Mia Community Facility',
+    location: 'South West Marine, Vancouver',
+    category: 'paving',
+    categoryLabel: 'Natural Flagstone & Steps',
     image: '/houston3.jpg',
-    category: 'Entryways & Steps',
-    tag: 'Architectural Entry',
-    title: 'Minimalist Flamed Granite Entry Stairs',
-    location: 'Point Grey, Vancouver',
-    material: 'Thermal Flamed Granite & Basalt Risers',
-    scope: 'Precision-measured modern front entrance steps with integrated concealed LED raceways',
-    aspect: 'square'
+    description: 'Hand-cut Bluestone courtyards, precision risers, and heritage estate landscape masonry.'
   },
   {
     id: 4,
+    title: 'Seashore Pacific Residence',
+    location: 'Point Grey, Vancouver',
+    category: 'paving',
+    categoryLabel: 'Custom Stone Entryway',
     image: '/houston4.jpg',
-    category: 'Patios & Walkways',
-    tag: 'Courtyard Paving',
-    title: 'Modern Linear Stone Walkway & Courtyard',
-    location: 'Shaughnessy, Vancouver',
-    material: 'Large-Format Basalt Pavers with Polymeric Joints',
-    scope: 'Seamless indoor-to-outdoor hardscaping connecting modern residence to private courtyard',
-    aspect: 'portrait'
+    description: 'Monolithic granite entry steps, custom perimeter dry-stack walls, and architectural paving.'
   },
   {
     id: 5,
+    title: 'Shaughnessy Mountain Terraces',
+    location: 'Shaughnessy, Vancouver',
+    category: 'retaining',
+    categoryLabel: 'Heavy Boulder Terracing',
     image: '/houston5.jpg',
-    category: 'Retaining Walls',
-    tag: 'Perimeter Boundary',
-    title: 'Hillside Architectural Stone Wall & Planters',
-    location: 'Whistler, BC',
-    material: 'Natural Mountain Basalt & Boulder Capping',
-    scope: 'Heavy alpine-grade retaining structure resisting high snow loads and seismic grade shifts',
-    aspect: 'landscape'
+    description: 'Multi-tiered granite block retaining walls with integrated subsurface French drainage.'
   },
   {
     id: 6,
+    title: 'Terralux Estate Winery',
+    location: 'Sea-to-Sky / Okanagan',
+    category: 'cladding',
+    categoryLabel: 'Commercial Stone Cladding',
     image: '/houston6.jpg',
-    category: 'Stone Veneer & Features',
-    tag: 'Stone Veneer',
-    title: 'Bespoke Modern Stone Facade & Pillar Wraps',
-    location: 'Burnaby Mountain, BC',
-    material: 'Full-Depth Hand-Chiseled Quartzite Veneer',
-    scope: 'Exterior facade masonry, matching entrance column wraps, and custom stone perimeter caps',
-    aspect: 'portrait'
+    description: 'Extensive natural ledgerock facade and structural stone pillars for landmark winery estate.'
   },
   {
     id: 7,
+    title: 'Whistler Alpine Haven',
+    location: 'Whistler, BC',
+    category: 'commercial',
+    categoryLabel: 'Alpine Masonry',
     image: '/houston7.jpg',
-    category: 'Patios & Walkways',
-    tag: 'Outdoor Living',
-    title: 'Curved Organic Slate Pool Deck & Patio',
-    location: 'Lions Bay, BC',
-    material: 'Pacific Slate & Permeable Polymeric Stone Jointing',
-    scope: 'Curvilinear outdoor patio framing custom swimming pool with non-slip textured finish',
-    aspect: 'landscape'
+    description: 'High-elevation basalt stone fireplaces, thermal exterior stone veneer, and snow-melt stone terraces.'
   },
   {
     id: 8,
+    title: 'Wilkinson Private Estate',
+    location: 'Kitsilano, Vancouver',
+    category: 'retaining',
+    categoryLabel: 'Landscape Masonry',
     image: '/houston8.jpg',
-    category: 'Entryways & Steps',
-    tag: 'Garden Access',
-    title: 'Natural Cascading Garden Stone Steps',
-    location: 'Deep Cove, North Vancouver',
-    material: 'Rough-Hewn Native Granite Slabs',
-    scope: 'Cascading natural rock staircase embedded into native woodland hillside terrain',
-    aspect: 'square'
+    description: 'Bespoke dry-stack slate retaining walls, artisan stone fire features, and garden courtyards.'
   },
   {
     id: 9,
+    title: 'North Shore Modern Residence',
+    location: 'North Vancouver, BC',
+    category: 'cladding',
+    categoryLabel: 'Contemporary Cladding',
     image: '/houston9.jpg',
-    category: 'Retaining Walls',
-    tag: 'Commercial Hardscape',
-    title: 'Urban Plaza Retaining Structure & Planters',
-    location: 'False Creek, Vancouver',
-    material: 'Precision Smooth-Faced Architectural Blocks',
-    scope: 'Commercial grade retaining planters and integrated public bench stone seating',
-    aspect: 'portrait'
-  },
-  {
-    id: 10,
-    image: '/houston10.jpg',
-    category: 'Stone Veneer & Features',
-    tag: 'Fireplace & Feature',
-    title: 'Outdoor Living Masonry Hearth & Fire Table',
-    location: 'Kitsilano, Vancouver',
-    material: 'Charcoal Basalt & Flamed Granite Coping',
-    scope: 'Custom outdoor stone masonry entertainment hearth with natural gas fire pit integration',
-    aspect: 'landscape'
+    description: 'Geometric granite paneling and seamless mortar-joint facade construction.'
   }
 ];
 
-const categories = ['All Projects', 'Retaining Walls', 'Entryways & Steps', 'Patios & Walkways', 'Stone Veneer & Features'];
+export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
 
-export default function Portfolio() {
-  const [selectedCategory, setSelectedCategory] = useState('All Projects');
-  const [activeProject, setActiveProject] = useState(null);
+  const filteredProjects = isFullPage
+    ? activeFilter === 'all'
+      ? PROJECTS
+      : PROJECTS.filter(p => p.category === activeFilter)
+    : PROJECTS.slice(0, 6);
 
-  useEffect(() => {
-    if (activeProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [activeProject]);
-
-  const filteredItems = selectedCategory === 'All Projects'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === selectedCategory);
-
-  const openLightbox = (item) => {
-    setActiveProject(item);
+  const openLightbox = (index) => {
+    setSelectedProjectIndex(index);
   };
 
   const closeLightbox = () => {
-    setActiveProject(null);
+    setSelectedProjectIndex(null);
   };
 
+  const nextLightbox = (e) => {
+    e.stopPropagation();
+    setSelectedProjectIndex((prev) => (prev + 1) % filteredProjects.length);
+  };
+
+  const prevLightbox = (e) => {
+    e.stopPropagation();
+    setSelectedProjectIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+  };
+
+  const currentProject = selectedProjectIndex !== null ? filteredProjects[selectedProjectIndex] : null;
+
   return (
-    <section id="portfolio" className="portfolio-section reveal">
+    <section className={`portfolio-section ${isFullPage ? 'portfolio-fullpage' : ''}`} id="portfolio">
       <div className="portfolio-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-eyebrow">SELECTED WORKS</span>
-          <h2 className="section-title-large">
-            A Portfolio of <span className="text-serif-italic">Enduring Stonework</span>
+        {/* Section Heading */}
+        <div className="portfolio-header">
+          <h2 className="portfolio-title">
+            {isFullPage ? 'Our Portfolio' : 'Recent Projects'}
           </h2>
-          <p className="section-header-sub">
-            Explore recent architectural stone masonry, structural retaining walls, and custom landscape installations across British Columbia.
+          <p className="portfolio-subtitle">
+            A selection of custom residential and commercial stone masonry installations across Metro Vancouver.
           </p>
 
-          {/* Category Filter Tabs with Horizontal Swipe on Mobile */}
-          <div className="portfolio-filter-container">
+          {/* Filter Pills for Full Page */}
+          {isFullPage && (
             <div className="portfolio-filter-bar">
-              {categories.map((cat) => (
+              {[
+                { id: 'all', label: 'All Projects' },
+                { id: 'cladding', label: 'Architectural Cladding' },
+                { id: 'retaining', label: 'Retaining Walls' },
+                { id: 'paving', label: 'Paving & Entryways' },
+                { id: 'commercial', label: 'Commercial' },
+              ].map(tab => (
                 <button
-                  key={cat}
-                  className={`filter-tab ${selectedCategory === cat ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(cat)}
+                  key={tab.id}
+                  className={`filter-btn ${activeFilter === tab.id ? 'filter-active' : ''}`}
+                  onClick={() => setActiveFilter(tab.id)}
                 >
-                  {cat}
+                  {tab.label}
                 </button>
               ))}
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Dynamic Multi-Aspect Portfolio Grid */}
-        <div className="portfolio-editorial-grid">
-          {filteredItems.map((item) => (
+        {/* Projects Grid */}
+        <div className="projects-grid">
+          {filteredProjects.map((project, idx) => (
             <div 
-              key={item.id} 
-              className={`portfolio-card-luxury card-aspect-${item.aspect} group`}
-              onClick={() => openLightbox(item)}
+              key={project.id} 
+              className="project-card"
+              onClick={() => openLightbox(idx)}
             >
-              <div className="portfolio-image-wrapper">
+              <div className="project-image-wrap">
                 <img 
-                  src={item.image} 
-                  alt={item.title} 
-                  className="portfolio-img-render"
+                  src={project.image} 
+                  alt={project.title} 
+                  className="project-image"
                   loading="lazy"
                 />
-                <div className="portfolio-card-overlay">
-                  <div className="overlay-top">
-                    <span className="portfolio-tag-pill">{item.tag}</span>
-                    <span className="portfolio-location-tag">
-                      <MapPin size={13} /> {item.location}
-                    </span>
-                  </div>
-                  
-                  <div className="overlay-bottom">
-                    <h3 className="portfolio-card-title">{item.title}</h3>
-                    <p className="portfolio-card-material">{item.material}</p>
-                    <div className="portfolio-inspect-cta">
-                      <ZoomIn size={16} />
-                      <span>Tap to Inspect Project</span>
-                    </div>
+                <div className="project-overlay">
+                  <span className="project-category-tag">{project.categoryLabel}</span>
+                  <h3 className="project-card-title">{project.title}</h3>
+                  <span className="project-card-location">{project.location}</span>
+                  <div className="project-view-icon">
+                    <Maximize2 size={18} />
                   </div>
                 </div>
               </div>
@@ -209,79 +177,66 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Bottom Banner CTA */}
-        <div className="portfolio-bottom-banner">
-          <div className="banner-content">
-            <h3>Have an ambitious architectural stone or landscape project?</h3>
-            <p>We review blueprints, site topography, and material options with builders and property owners.</p>
+        {/* Explore All CTA for Home page view */}
+        {!isFullPage && onNavigatePortfolio && (
+          <div className="portfolio-bottom-action">
+            <button 
+              className="btn-luxury-secondary"
+              onClick={onNavigatePortfolio}
+            >
+              <span>View All Portfolio Projects</span>
+              <ArrowRight size={16} />
+            </button>
           </div>
-          <a href="#contact" className="btn-luxury-primary banner-btn">
-            <span>Discuss Your Project</span>
-            <ArrowRight size={16} />
-          </a>
-        </div>
+        )}
       </div>
 
-      {/* Lightbox Modal */}
-      {activeProject && (
-        <div className="lightbox-backdrop" onClick={closeLightbox}>
-          <div className="lightbox-modal animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
-            <button className="lightbox-close-btn" onClick={closeLightbox} aria-label="Close modal">
-              <X size={20} />
+      {/* Fullscreen Lightbox Modal */}
+      {currentProject && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <div className="lightbox-container" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="lightbox-close-btn"
+              onClick={closeLightbox}
+              aria-label="Close Lightbox"
+            >
+              <X size={24} />
             </button>
 
-            <div className="lightbox-body">
-              <div className="lightbox-image-side">
-                <img 
-                  src={activeProject.image} 
-                  alt={activeProject.title} 
-                  className="lightbox-main-image"
-                />
+            <button 
+              className="lightbox-nav-btn lightbox-prev"
+              onClick={prevLightbox}
+              aria-label="Previous Project"
+            >
+              <ChevronLeft size={30} />
+            </button>
+
+            <button 
+              className="lightbox-nav-btn lightbox-next"
+              onClick={nextLightbox}
+              aria-label="Next Project"
+            >
+              <ChevronRight size={30} />
+            </button>
+
+            <div className="lightbox-media">
+              <img 
+                src={currentProject.image} 
+                alt={currentProject.title} 
+                className="lightbox-image"
+              />
+            </div>
+
+            <div className="lightbox-details">
+              <div className="lightbox-details-header">
+                <span className="lightbox-tag">{currentProject.categoryLabel}</span>
+                <span className="lightbox-counter">
+                  {selectedProjectIndex + 1} / {filteredProjects.length}
+                </span>
               </div>
-
-              <div className="lightbox-details-side">
-                <div className="lightbox-tag-row">
-                  <span className="portfolio-tag-pill">{activeProject.category}</span>
-                  <span className="portfolio-location-tag">
-                    <MapPin size={14} /> {activeProject.location}
-                  </span>
-                </div>
-
-                <h2 className="lightbox-title">{activeProject.title}</h2>
-
-                <div className="lightbox-meta-block">
-                  <div className="meta-item">
-                    <span className="meta-label">Primary Materials</span>
-                    <span className="meta-value">{activeProject.material}</span>
-                  </div>
-
-                  <div className="meta-item">
-                    <span className="meta-label">Project Scope</span>
-                    <span className="meta-value">{activeProject.scope}</span>
-                  </div>
-
-                  <div className="meta-item">
-                    <span className="meta-label">Craftsmanship Guarantee</span>
-                    <span className="meta-value">10-Year Structural Integrity Warranty</span>
-                  </div>
-                </div>
-
-                <div className="lightbox-actions">
-                  <a 
-                    href="#contact" 
-                    className="btn-luxury-primary" 
-                    style={{ width: '100%', justifyContent: 'center' }}
-                    onClick={() => {
-                      closeLightbox();
-                      const el = document.getElementById('contact');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    <span>Request Estimate for Similar Project</span>
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
-              </div>
+              <h3 className="lightbox-title">{currentProject.title}</h3>
+              <p className="lightbox-location">{currentProject.location}</p>
+              <p className="lightbox-description">{currentProject.description}</p>
             </div>
           </div>
         </div>

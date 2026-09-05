@@ -1,76 +1,98 @@
 import React from 'react';
-import { Ruler, Sparkles, Hammer, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Compass, Layers, Hammer, CheckSquare, ArrowRight } from 'lucide-react';
 
-const processSteps = [
+const STEPS = [
   {
-    step: '01',
-    icon: <Ruler size={24} />,
-    title: 'Site Analysis & Engineering Review',
-    description: 'We examine your site topography, soil composition, drainage paths, and slope stabilization requirements. For structural retaining walls, we calculate load bearing, geogrid tiebacks, and ensure full compliance with BC building bylaws.',
-    highlights: ['Laser-grade elevation mapping', 'Drainage & hydrostatic pressure planning', 'Municipal permit & engineering coordination']
+    num: '01',
+    title: 'Consultation & Site Feasibility',
+    icon: Compass,
+    description: 'We evaluate grading, geotechnical requirements, architectural blueprints, and stone material choices with project stakeholders.',
+    image: '/houston8.jpg'
   },
   {
-    step: '02',
-    icon: <Sparkles size={24} />,
-    title: 'Material Sourcing & Hand Selection',
-    description: 'We source the finest quarried Pacific Northwest stones—dense mountain basalts, deep charcoal slates, textured granites, and heavy architectural concrete blocks tested for high freeze-thaw durability.',
-    highlights: ['Hand-sorted cleft & texture matching', 'High-compression architectural block varieties', 'Color & vein alignment for seamless flow']
+    num: '02',
+    title: 'Engineering & Precision Sourcing',
+    icon: Layers,
+    description: 'Structural load calculations, drainage design, and direct quarry sourcing of premium granite, basalt, slate, or manufactured masonry.',
+    image: '/houston4.jpg'
   },
   {
-    step: '03',
-    icon: <Hammer size={24} />,
-    title: 'Precision Craftsmanship & Masonry',
-    description: 'Our certified Red Seal stonemasons execute every installation with exact joint alignments, deep compacted road-base foundations, structural reinforced mortar, and gravel backfill drainage cores.',
-    highlights: ['Vibrated multi-layer base compaction', 'Clean, precision-chiseled stone joints', 'Integrated perforated drainage piping']
+    num: '03',
+    title: 'Groundwork & Structural Base',
+    icon: Hammer,
+    description: 'Deep excavation, compacted aggregate foundation, geotextile membrane placement, and integrated subsurface drainage systems.',
+    image: '/houston5.jpg'
   },
   {
-    step: '04',
-    icon: <ShieldCheck size={24} />,
-    title: 'Sealing, Inspection & Handover',
-    description: 'We apply premium breathable, hydrophobic stone sealants to lock out moss, efflorescence, and moisture intrusion. We conduct a rigorous multi-point inspection before final client sign-off.',
-    highlights: ['Deep penetrating UV & moisture sealants', 'Permeable polymeric joint lock', '10-Year Craftsmanship & Structural Guarantee']
+    num: '04',
+    title: 'Master Installation & Hand Finishing',
+    icon: CheckSquare,
+    description: 'Meticulous stone placement, precision hand chiseling, seamless mortar or dry-stack joints, and architectural sealant application.',
+    image: '/houston3.jpg'
   }
 ];
 
-export default function Process() {
+export default function Process({ onContactClick }) {
   return (
-    <section id="process" className="process-section reveal">
-      <div className="process-container">
-        {/* Section Header */}
-        <div className="section-header-centered">
-          <span className="section-eyebrow">OUR METHODOLOGY</span>
-          <h2 className="section-title-large">
-            The Khaan Stone <span className="text-serif-italic">Standard of Mastery</span>
-          </h2>
-          <p className="section-header-sub">
-            Inspired by classical stone masonry traditions and modern structural engineering, our structured 4-phase process guarantees longevity and flawless execution.
+    <div className="subpage-view process-page animate-fade-in">
+      <div className="subpage-hero">
+        <div className="subpage-hero-inner">
+          <span className="subpage-kicker">METICULOUS EXECUTION</span>
+          <h1 className="subpage-title">Our Process</h1>
+        </div>
+      </div>
+
+      <div className="subpage-content-container">
+        <div className="process-intro-text">
+          <p>
+            Every enduring stone structure requires rigorous engineering and old-world craftsmanship. Our streamlined 4-phase methodology guarantees structural integrity and flawless aesthetic delivery.
           </p>
         </div>
 
-        {/* Process 4-Col Flow */}
-        <div className="process-steps-grid">
-          {processSteps.map((item) => (
-            <div key={item.step} className="process-step-card group">
-              <div className="step-header">
-                <span className="step-number">{item.step}</span>
-                <div className="step-icon-wrap">{item.icon}</div>
-              </div>
+        <div className="process-steps-list">
+          {STEPS.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.num} className="process-step-row">
+                <div className="process-step-num-col">
+                  <span className="step-huge-num">{step.num}</span>
+                  <div className="step-num-line"></div>
+                </div>
 
-              <h3 className="step-card-title">{item.title}</h3>
-              <p className="step-card-desc">{item.description}</p>
-
-              <div className="step-highlights-list">
-                {item.highlights.map((h, i) => (
-                  <div key={i} className="step-highlight-row">
-                    <CheckCircle2 size={14} className="highlight-bullet" />
-                    <span>{h}</span>
+                <div className="process-step-body">
+                  <div className="process-step-info">
+                    <div className="step-icon-badge">
+                      <Icon size={22} />
+                    </div>
+                    <h3 className="process-step-title">{step.title}</h3>
+                    <p className="process-step-desc">{step.description}</p>
                   </div>
-                ))}
+
+                  <div className="process-step-img-wrap">
+                    <img 
+                      src={step.image} 
+                      alt={step.title} 
+                      className="process-step-img"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+
+        <div className="subpage-action-banner">
+          <h3>Have architectural drawings or a project site in mind?</h3>
+          <button 
+            className="btn-luxury-primary"
+            onClick={onContactClick}
+          >
+            <span>Start Consultation</span>
+            <ArrowRight size={16} />
+          </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

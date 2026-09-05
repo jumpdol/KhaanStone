@@ -1,51 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, ArrowUpRight } from 'lucide-react';
 
-export default function Navbar() {
+export default function Navbar({ activeView, setActiveView }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-
-      const sections = ['home', 'services', 'portfolio', 'process', 'about', 'contact'];
-      const scrollPosition = window.scrollY + 140;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+      setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e, id) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleNavClick = (viewId) => {
+    setActiveView(viewId);
     setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'process', label: 'Process' },
+    { id: 'about', label: 'About' },
+    { id: 'systems', label: 'Systems' },
+    { id: 'portfolio', label: 'Portfolio' },
+    { id: 'contact', label: 'Contact' },
+  ];
 
   return (
     <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
       <div className="header-inner">
         {/* Brand Logo */}
-        <a href="#home" className="brand-logo" onClick={(e) => handleNavClick(e, 'home')}>
+        <button 
+          className="brand-logo-btn" 
+          onClick={() => handleNavClick('home')}
+          aria-label="Khaan Stone Home"
+        >
           <div className="logo-symbol">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 3L28 10V22L16 29L4 22V10L16 3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
               <path d="M16 3V29" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2" />
               <path d="M4 10L16 16L28 10" stroke="currentColor" strokeWidth="1.75" />
@@ -54,70 +48,37 @@ export default function Navbar() {
           </div>
           <div className="logo-text">
             <span className="logo-main">KHAAN STONE</span>
-            <span className="logo-tagline">MASONRY & LANDSCAPE</span>
+            <span className="logo-tagline">ARCHITECTURAL MASONRY</span>
           </div>
-        </a>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Main Navigation">
-          <a
-            href="#home"
-            className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'home')}
-          >
-            Home
-          </a>
-          <a
-            href="#services"
-            className={`nav-link ${activeSection === 'services' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'services')}
-          >
-            Services
-          </a>
-          <a
-            href="#portfolio"
-            className={`nav-link ${activeSection === 'portfolio' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'portfolio')}
-          >
-            Portfolio
-          </a>
-          <a
-            href="#process"
-            className={`nav-link ${activeSection === 'process' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'process')}
-          >
-            Craftsmanship
-          </a>
-          <a
-            href="#about"
-            className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'about')}
-          >
-            About
-          </a>
-          <a
-            href="#contact"
-            className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'contact')}
-          >
-            Contact
-          </a>
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              className={`nav-link ${activeView === item.id ? 'active' : ''}`}
+              onClick={() => handleNavClick(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
         </nav>
 
         {/* Header Actions */}
         <div className="header-actions">
           <a href="tel:6045550190" className="header-phone">
-            <Phone size={15} />
+            <Phone size={14} />
             <span>(604) 555-0190</span>
           </a>
-          <a
-            href="#contact"
-            className="btn-luxury-primary"
-            onClick={(e) => handleNavClick(e, 'contact')}
+          
+          <button
+            className="btn-header-cta"
+            onClick={() => handleNavClick('contact')}
           >
-            <span>Consultation</span>
-            <ArrowUpRight size={15} />
-          </a>
+            <span>Inquire</span>
+            <ArrowUpRight size={14} />
+          </button>
 
           {/* Mobile Menu Trigger */}
           <button
@@ -132,64 +93,45 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div className={`mobile-nav-drawer ${isMenuOpen ? 'drawer-open' : ''}`}>
+        <div className="mobile-drawer-header">
+          <div className="logo-text">
+            <span className="logo-main">KHAAN STONE</span>
+            <span className="logo-tagline">ARCHITECTURAL MASONRY</span>
+          </div>
+          <button 
+            className="mobile-drawer-close"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
         <div className="mobile-nav-links">
-          <a
-            href="#home"
-            className={`mobile-nav-link ${activeSection === 'home' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'home')}
-          >
-            01. Home
-          </a>
-          <a
-            href="#services"
-            className={`mobile-nav-link ${activeSection === 'services' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'services')}
-          >
-            02. Services
-          </a>
-          <a
-            href="#portfolio"
-            className={`mobile-nav-link ${activeSection === 'portfolio' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'portfolio')}
-          >
-            03. Portfolio
-          </a>
-          <a
-            href="#process"
-            className={`mobile-nav-link ${activeSection === 'process' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'process')}
-          >
-            04. Craftsmanship & Process
-          </a>
-          <a
-            href="#about"
-            className={`mobile-nav-link ${activeSection === 'about' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'about')}
-          >
-            05. About Khaan Stone
-          </a>
-          <a
-            href="#contact"
-            className={`mobile-nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, 'contact')}
-          >
-            06. Contact & Consultation
-          </a>
+          {navItems.map((item, idx) => (
+            <button
+              key={item.id}
+              className={`mobile-nav-link ${activeView === item.id ? 'active' : ''}`}
+              onClick={() => handleNavClick(item.id)}
+            >
+              <span className="mobile-nav-index">0{idx + 1}</span>
+              <span className="mobile-nav-title">{item.label}</span>
+            </button>
+          ))}
         </div>
 
         <div className="mobile-nav-footer">
           <a href="tel:6045550190" className="mobile-phone-link">
             <Phone size={16} /> (604) 555-0190
           </a>
-          <a
-            href="#contact"
+          <button
             className="btn-luxury-primary"
             style={{ width: '100%', justifyContent: 'center' }}
-            onClick={(e) => handleNavClick(e, 'contact')}
+            onClick={() => handleNavClick('contact')}
           >
             <span>Request Site Consultation</span>
             <ArrowUpRight size={16} />
-          </a>
+          </button>
         </div>
       </div>
     </header>

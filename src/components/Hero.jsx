@@ -1,92 +1,137 @@
-import React from 'react';
-import { ArrowRight, ArrowUpRight, ShieldCheck, Award, MapPin } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 
-export default function Hero() {
-  const handleScrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+const SLIDES = [
+  {
+    id: 1,
+    image: '/houston1.jpg',
+    title: 'The Pride of Meticulous\nCraftsmanship',
+    subtitle: 'VANCOUVER & SEA-TO-SKY',
+    alt: 'Luxury architectural stone masonry by Khaan Stone'
+  },
+  {
+    id: 2,
+    image: '/houston3.jpg',
+    title: 'Providing Modern Precision Finishes\nWith Old World Masonry Traditions',
+    subtitle: 'ENGINEERED ARCHITECTURE',
+    alt: 'Custom stone retaining walls and structural masonry'
+  },
+  {
+    id: 3,
+    image: '/houston5.jpg',
+    title: 'Delivering Finished Work That Infuses\nDurability With Artistic Expression',
+    subtitle: 'COMMERCIAL & RESIDENTIAL',
+    alt: 'Granite and basalt stone entryways and courtyards'
+  }
+];
+
+export default function Hero({ onExplore }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
   };
 
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  };
+
+  useEffect(() => {
+    if (!isPaused) {
+      timerRef.current = setInterval(() => {
+        nextSlide();
+      }, 5500);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, currentSlide]);
+
   return (
-    <section id="home" className="hero-section">
-      {/* Background Image Layer with Luxury Dark Gradient Overlay */}
-      <div className="hero-bg-layer">
-        <img 
-          src="/houston1.jpg" 
-          alt="Khaan Stone Luxury Architectural Stone and Landscape Masonry in Vancouver" 
-          className="hero-bg-image"
-        />
-        <div className="hero-gradient-overlay"></div>
+    <section 
+      className="hero-slider-wrap"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      aria-label="Hero Showcase"
+    >
+      {/* Slides Container */}
+      <div className="hero-slider-container">
+        {SLIDES.map((slide, index) => {
+          const isActive = index === currentSlide;
+          return (
+            <div
+              key={slide.id}
+              className={`hero-slide ${isActive ? 'slide-active' : ''}`}
+              style={{
+                backgroundImage: `linear-gradient(rgba(10, 15, 20, 0.42), rgba(10, 15, 20, 0.58)), url(${slide.image})`
+              }}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`Slide ${index + 1} of ${SLIDES.length}`}
+            >
+              <div className="hero-slide-content">
+                <span className="hero-slide-tag">{slide.subtitle}</span>
+                <h1 className="hero-slide-title">
+                  {slide.title.split('\n').map((line, lIdx) => (
+                    <span key={lIdx} className="hero-title-line">
+                      {line}
+                      <br />
+                    </span>
+                  ))}
+                </h1>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="hero-container">
-        {/* Editorial Subtitle Pill */}
-        <div className="hero-badge-pill animate-fade-in-up">
-          <span className="badge-dot"></span>
-          <span className="badge-text">Vancouver’s Master Stone & Landscape Masonry</span>
-        </div>
+      {/* Slide Navigation Controls (Left & Right) */}
+      <div className="slider-controls-wrap">
+        <button 
+          className="slider-nav-btn slider-prev" 
+          onClick={prevSlide}
+          aria-label="Previous Slide"
+        >
+          <ChevronLeft size={24} />
+          <span className="slider-count-label">
+            0{currentSlide + 1} <span className="slider-count-sep">/</span> 0{SLIDES.length}
+          </span>
+        </button>
 
-        {/* Hero Main Headline */}
-        <h1 className="hero-heading animate-fade-in-up">
-          Shaping Earth & Stone <br />
-          <span className="hero-heading-italic">Into Architectural Legacy.</span>
-        </h1>
-
-        {/* Hero Narrative Paragraph */}
-        <p className="hero-subtext animate-fade-in-up">
-          Specializing in structural retaining walls, bespoke granite & slate entryways, natural flagstone courtyards, and architectural masonry across Metro Vancouver & the Sea-to-Sky corridor.
-        </p>
-
-        {/* Hero Action CTAs */}
-        <div className="hero-cta-group animate-fade-in-up">
-          <button 
-            className="btn-luxury-primary btn-large" 
-            onClick={() => handleScrollTo('portfolio')}
-          >
-            <span>Explore Portfolio</span>
-            <ArrowRight size={18} />
-          </button>
-          
-          <button 
-            className="btn-luxury-ghost btn-large" 
-            onClick={() => handleScrollTo('contact')}
-          >
-            <span>Request Site Consultation</span>
-            <ArrowUpRight size={18} />
-          </button>
-        </div>
-
-        {/* Hero Trust Ticker / Fast Credibility Metrics */}
-        <div className="hero-metrics-grid animate-fade-in-up">
-          <div className="hero-metric-card">
-            <div className="metric-number">20+</div>
-            <div className="metric-label">Years of Craftsmanship</div>
-          </div>
-          <div className="hero-metric-divider"></div>
-          <div className="hero-metric-card">
-            <div className="metric-number">500+</div>
-            <div className="metric-label">Completed BC Projects</div>
-          </div>
-          <div className="hero-metric-divider"></div>
-          <div className="hero-metric-card">
-            <div className="metric-number">$5M</div>
-            <div className="metric-label">Commercial Liability Insured</div>
-          </div>
-          <div className="hero-metric-divider"></div>
-          <div className="hero-metric-card">
-            <div className="metric-number">100%</div>
-            <div className="metric-label">Red Seal Mason Standard</div>
-          </div>
-        </div>
+        <button 
+          className="slider-nav-btn slider-next" 
+          onClick={nextSlide}
+          aria-label="Next Slide"
+        >
+          <span className="slider-count-label">
+            0{currentSlide + 1} <span className="slider-count-sep">/</span> 0{SLIDES.length}
+          </span>
+          <ChevronRight size={24} />
+        </button>
       </div>
 
-      {/* Floating West Coast Location Badge */}
-      <div className="hero-location-badge">
-        <MapPin size={14} className="location-icon" />
-        <span>Vancouver • West Vancouver • Whistler • Sea-to-Sky</span>
+      {/* Slide Indicators / Dots */}
+      <div className="slider-indicators">
+        {SLIDES.map((_, idx) => (
+          <button
+            key={idx}
+            className={`slider-indicator-dot ${idx === currentSlide ? 'dot-active' : ''}`}
+            onClick={() => setCurrentSlide(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
       </div>
+
+      {/* Scroll Down Hint */}
+      <button 
+        className="slider-down-arrow"
+        onClick={onExplore}
+        aria-label="Scroll to content"
+      >
+        <ChevronDown size={28} />
+      </button>
     </section>
   );
 }

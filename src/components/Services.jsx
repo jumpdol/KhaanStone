@@ -1,126 +1,99 @@
 import React from 'react';
-import { Layers, Landmark, Milestone, Sparkles, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 
-const services = [
+const SYSTEMS = [
   {
-    id: 'retaining-walls',
-    image: '/houston2.jpg',
-    badge: 'Structural Engineering',
-    title: 'Engineered Retaining Walls & Block Systems',
-    description: 'Heavy-duty segmental concrete block walls, gravity retaining structures, and structural slope stabilization tailored for Vancouver’s hillside topographies and heavy precipitation.',
-    features: [
-      'Engineered geogrid reinforcement & drainage backfill',
-      'Architectural segmental retaining blocks & caps',
-      'Perimeter acoustic security fences & terraced walls',
-      'Municipal permit assistance & laser-level site grading'
-    ]
+    id: 'cladding',
+    title: 'Exterior Architectural Cladding',
+    tagline: 'Dimensional & Ledgerock Systems',
+    description: 'Precision mechanical anchored and adhered stone veneer for modern luxury residences, commercial towers, and estate facades.',
+    points: ['Stainless steel anchoring', 'Weather-resistant rainscreen integration', 'Natural basalt, limestone, and granite'],
+    image: '/houston1.jpg'
   },
   {
-    id: 'stone-stairs',
-    image: '/houston3.jpg',
-    badge: 'Architectural Entryways',
-    title: 'Custom Stone Steps & Grand Entranceways',
-    description: 'Make an unforgettable entrance. We precision-cut and install premium natural slate, basalt, and flamed granite steps designed for long-term slip resistance and architectural elegance.',
-    features: [
-      'Solid granite & flamed basalt step treads',
-      'Natural slate porch tiling & landing cladding',
-      'Integrated low-voltage step illumination channels',
-      'Mortared stone pillars & matching architectural caps'
-    ]
+    id: 'retaining',
+    title: 'Engineered Retaining Walls',
+    tagline: 'Structural Slope Stabilization',
+    description: 'Heavy-duty block, granite boulder, and gravity wall systems designed to stabilize West Coast hillsides and create terraced usable land.',
+    points: ['Engineered backfill & French drainage', 'Integrated geogrid reinforcement', 'Commercial & estate scale'],
+    image: '/houston2.jpg'
   },
   {
-    id: 'flagstone-patios',
-    image: '/houston4.jpg',
-    badge: 'Outdoor Living',
-    title: 'Luxury Flagstone Patios & Courtyard Walkways',
-    description: 'Transform outdoor spaces into timeless living sanctuaries. Using hand-dressed organic flagstone, thermal bluestone, and basalt paving laid with permeable polymer joints.',
-    features: [
-      'Organic hand-cut flagstone & irregular slate paving',
-      'Permeable joint compounds & frost-resistant sub-bases',
-      'Seamless transition from indoor living to patio landscapes',
-      'Integrated natural stone fire pits & garden borders'
-    ]
+    id: 'paving',
+    title: 'Natural Stone Paving & Entryways',
+    tagline: 'Monolithic Steps & Courtyards',
+    description: 'Hand-cut Bluestone, granite flagstone, and precision permeable pavers designed for luxury driveways, grand entrances, and outdoor living.',
+    points: ['Heavy load vehicular rating', 'Thermal anti-slip surface treatments', 'Custom radial cuts and bullnose borders'],
+    image: '/houston3.jpg'
   },
   {
-    id: 'stone-veneer',
-    image: '/houston6.jpg',
-    badge: 'Exterior & Interior Masonry',
-    title: 'Natural Stone Veneers & Custom Feature Masonry',
-    description: 'Enhance your home’s facade or interior with authentic natural stone cladding. From full-depth stone masonry to thin veneer siding, outdoor kitchens, and modern stone fireplaces.',
-    features: [
-      'Exterior architectural stone siding & facades',
-      'Custom outdoor fireplaces, barbecues & chimneys',
-      'Basalt, limestone, quartzite & granite veneer options',
-      'Stone repair, mortar repointing & weatherproofing sealing'
-    ]
+    id: 'interior',
+    title: 'Interior Architectural Stone',
+    tagline: 'Fireplaces & Feature Walls',
+    description: 'Floor-to-ceiling stone hearths, wine cellar masonry, and bookmatched stone accent installations for high-end interior architecture.',
+    points: ['Seamless mitred corners', 'Non-combustible hearth masonry', 'Custom lighting integration'],
+    image: '/houston7.jpg'
   }
 ];
 
-export default function Services() {
-  const handleScrollToContact = (e) => {
-    e.preventDefault();
-    const el = document.getElementById('contact');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
+export default function Services({ onContactClick }) {
   return (
-    <section id="services" className="services-section reveal">
-      <div className="services-container">
-        {/* Section Header */}
-        <div className="section-header-row">
-          <div className="section-header-left">
-            <span className="section-eyebrow">OUR CAPABILITIES</span>
-            <h2 className="section-title-large">
-              Architectural Stonework <br />
-              <span className="text-serif-italic">Engineered for Generations.</span>
-            </h2>
-          </div>
-          <div className="section-header-right">
-            <p className="section-header-desc">
-              From residential estates in West Vancouver to commercial landscape developments in Vancouver and the Sea-to-Sky, we deliver full-scope stone masonry and landscape construction with uncompromising standards.
-            </p>
-          </div>
+    <div className="subpage-view systems-page animate-fade-in">
+      <div className="subpage-hero">
+        <div className="subpage-hero-inner">
+          <span className="subpage-kicker">MASONRY CAPABILITIES</span>
+          <h1 className="subpage-title">Masonry Systems</h1>
+        </div>
+      </div>
+
+      <div className="subpage-content-container">
+        <div className="systems-intro-text">
+          <p>
+            Khaan Stone engineers and installs specialized stone assemblies designed to exceed BC building codes and deliver unmatched architectural distinction.
+          </p>
         </div>
 
-        {/* Services 2x2 Rich Cards Grid */}
-        <div className="services-luxury-grid">
-          {services.map((service, index) => (
-            <div key={service.id} className="service-luxury-card group">
-              <div className="service-card-image-wrap">
+        <div className="systems-list">
+          {SYSTEMS.map((system, index) => (
+            <div 
+              key={system.id} 
+              className={`system-row-card ${index % 2 === 1 ? 'system-row-reverse' : ''}`}
+            >
+              <div className="system-image-col">
                 <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="service-card-image"
+                  src={system.image} 
+                  alt={system.title} 
+                  className="system-card-img"
                   loading="lazy"
                 />
-                <span className="service-card-badge">{service.badge}</span>
-                <span className="service-number">0{index + 1}</span>
               </div>
 
-              <div className="service-card-content">
-                <h3 className="service-card-title">{service.title}</h3>
-                <p className="service-card-desc">{service.description}</p>
+              <div className="system-content-col">
+                <span className="system-tagline">{system.tagline}</span>
+                <h3 className="system-title">{system.title}</h3>
+                <p className="system-desc">{system.description}</p>
                 
-                <ul className="service-card-checklist">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="checklist-item">
-                      <Check size={16} className="checklist-icon" />
-                      <span>{feature}</span>
+                <ul className="system-features-list">
+                  {system.points.map((pt, i) => (
+                    <li key={i} className="system-feature-item">
+                      <Check size={16} className="system-check-icon" />
+                      <span>{pt}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="service-card-action">
-                  <a href="#contact" className="service-link-cta" onClick={handleScrollToContact}>
-                    <span>Inquire About This Service</span>
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
+                <button 
+                  className="btn-system-inquire"
+                  onClick={onContactClick}
+                >
+                  <span>Inquire for Specifications</span>
+                  <ArrowRight size={15} />
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
