@@ -8,7 +8,7 @@ export default function Footer({ onNavClick }) {
         <div className="footer-container">
           <div className="footer-brand-col">
             <span className="footer-brand-name">KHAAN STONE</span>
-            <span className="footer-brand-tagline">Architectural Stone Masonry • Metro Vancouver &amp; Sea-to-Sky</span>
+            <span className="footer-brand-tagline">Hardscape &amp; Stone Construction • Metro Vancouver &amp; Sea-to-Sky</span>
           </div>
 
           <div className="footer-contact-items">

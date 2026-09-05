@@ -22,9 +22,9 @@ export default function Navbar({ activeView, setActiveView }) {
 
   const navItems = [
     { id: 'home', label: 'Home' },
+    { id: 'services', label: 'Hardscape' },
     { id: 'process', label: 'Process' },
     { id: 'about', label: 'About' },
-    { id: 'systems', label: 'Systems' },
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -48,7 +48,7 @@ export default function Navbar({ activeView, setActiveView }) {
           </div>
           <div className="logo-text">
             <span className="logo-main">KHAAN STONE</span>
-            <span className="logo-tagline">ARCHITECTURAL MASONRY</span>
+            <span className="logo-tagline">HARDSCAPE</span>
           </div>
         </button>
 
@@ -96,7 +96,7 @@ export default function Navbar({ activeView, setActiveView }) {
         <div className="mobile-drawer-header">
           <div className="logo-text">
             <span className="logo-main">KHAAN STONE</span>
-            <span className="logo-tagline">ARCHITECTURAL MASONRY</span>
+            <span className="logo-tagline">HARDSCAPE</span>
           </div>
           <button 
             className="mobile-drawer-close"

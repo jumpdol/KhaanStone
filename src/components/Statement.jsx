@@ -19,7 +19,7 @@ export default function Statement() {
       <div className="statement-inner">
         <div className="statement-content-container">
           <h2 className="statement-lead-text">
-            At Khaan Stone, our team of dedicated craftsmen specialize in interior &amp; exterior stone work from design to installation. We undertake complex architectural &amp; engineered projects that require a high level of expertise in Vancouver’s Lower Mainland area.
+            At Khaan Stone, our team of dedicated craftsmen specialize in residential &amp; commercial hardscape and custom stone work from design to installation. We undertake complex architectural &amp; engineered projects that require a high level of expertise in Vancouver’s Lower Mainland area.
           </h2>
         </div>
       </div>
