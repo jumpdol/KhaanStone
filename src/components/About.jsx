@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Award, CheckCircle2, MapPin } from 'lucide-react';
+import { Shield, Award, CheckCircle2, MapPin, Sparkles, Layers, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function About({ onContactClick }) {
   return (
@@ -7,6 +7,11 @@ export default function About({ onContactClick }) {
       {/* Page Header */}
       <div className="subpage-hero">
         <div className="subpage-hero-inner">
+          <div className="brand-tri-bar" style={{ justifyContent: 'center' }}>
+            <span className="bar-sand"></span>
+            <span className="bar-terracotta"></span>
+            <span className="bar-slate"></span>
+          </div>
           <span className="subpage-kicker">OUR HERITAGE &amp; VALUES</span>
           <h1 className="subpage-title">About Khaan Stone</h1>
         </div>
@@ -28,13 +33,59 @@ export default function About({ onContactClick }) {
                 Each project brings unique terrain and architectural requirements. Our goal is to translate the vision into timeless stone structures built to endure Pacific Northwest weather for generations.
               </p>
             </div>
+
+            {/* 3 Brand Pillars */}
+            <div className="about-pillars-grid">
+              <div className="about-pillar-card pillar-sand">
+                <div className="pillar-top-row">
+                  <span className="pillar-dot dot-sand">◆</span>
+                  <span className="pillar-code">PILLAR 01</span>
+                </div>
+                <h3 className="pillar-title title-sand">Precision Artistry</h3>
+                <p className="pillar-desc">Hand-chiseled architectural flagstone, natural granite steps, and bespoke garden features.</p>
+              </div>
+
+              <div className="about-pillar-card pillar-terracotta">
+                <div className="pillar-top-row">
+                  <span className="pillar-dot dot-terracotta">◆</span>
+                  <span className="pillar-code">PILLAR 02</span>
+                </div>
+                <h3 className="pillar-title title-terracotta">Engineered Strength</h3>
+                <p className="pillar-desc">Dimensioned stone veneer, commercial facades, storefronts, and structural columns.</p>
+              </div>
+
+              <div className="about-pillar-card pillar-slate">
+                <div className="pillar-top-row">
+                  <span className="pillar-dot dot-slate">◆</span>
+                  <span className="pillar-code">PILLAR 03</span>
+                </div>
+                <h3 className="pillar-title title-slate">Enduring Legacy</h3>
+                <p className="pillar-desc">Heavy structural retaining walls, seismic anchored boulders, and sub-base drainage.</p>
+              </div>
+            </div>
+
+            {/* Metrics Row with 3 Colors */}
+            <div className="about-metrics-row">
+              <div className="about-metric-item metric-sand">
+                <span className="about-metric-val val-sand">3+</span>
+                <span className="about-metric-lbl">Years Field Experience</span>
+              </div>
+              <div className="about-metric-item metric-terracotta">
+                <span className="about-metric-val val-terracotta">50+</span>
+                <span className="about-metric-lbl">Delivered Projects</span>
+              </div>
+              <div className="about-metric-item metric-slate">
+                <span className="about-metric-val val-slate">100%</span>
+                <span className="about-metric-lbl">Building Code Compliance</span>
+              </div>
+            </div>
           </div>
 
           <div className="about-image-column">
             <div className="about-image-frame">
-              <img 
-                src="/houston7.jpg" 
-                alt="Khaan Stone Craftsmanship" 
+              <img
+                src="/houston7.jpg"
+                alt="Khaan Stone Craftsmanship"
                 className="about-feature-img"
               />
               <div className="about-image-caption">
@@ -57,19 +108,19 @@ export default function About({ onContactClick }) {
 
             <div className="safety-points-grid">
               <div className="safety-point">
-                <CheckCircle2 size={18} className="safety-check" />
+                <CheckCircle2 size={18} className="safety-check check-terracotta" />
                 <span>WorkSafeBC compliant with zero-compromise site protocols.</span>
               </div>
               <div className="safety-point">
-                <CheckCircle2 size={18} className="safety-check" />
+                <CheckCircle2 size={18} className="safety-check check-sand" />
                 <span>Engineered sub-base drainage and seismic anchoring on all walls.</span>
               </div>
               <div className="safety-point">
-                <CheckCircle2 size={18} className="safety-check" />
+                <CheckCircle2 size={18} className="safety-check check-slate" />
                 <span>Direct collaboration with municipal building inspectors and structural engineers.</span>
               </div>
               <div className="safety-point">
-                <CheckCircle2 size={18} className="safety-check" />
+                <CheckCircle2 size={18} className="safety-check check-terracotta" />
                 <span>All materials locally sourced from sustainable BC and North American quarries.</span>
               </div>
             </div>
@@ -79,11 +130,12 @@ export default function About({ onContactClick }) {
         {/* Action Callout */}
         <div className="subpage-action-banner">
           <h3>Ready to discuss your hardscape or stone project?</h3>
-          <button 
+          <button
             className="btn-luxury-primary"
             onClick={onContactClick}
           >
             <span>Request Site Consultation</span>
+            <ArrowRight size={16} />
           </button>
         </div>
       </div>

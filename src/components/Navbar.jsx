@@ -32,21 +32,17 @@ export default function Navbar({ activeView, setActiveView }) {
   return (
     <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
       <div className="header-inner">
-        {/* Brand Logo with Official SVG / PNG */}
+        {/* Brand Logo with Official SVG */}
         <button 
           className="brand-logo-btn" 
           onClick={() => handleNavClick('home')}
           aria-label="Khaan Stone Home"
         >
           <img 
-            src="/logo/logo.svg" 
-            alt="Khaan Stone Logo" 
+            src="/logo/KhaanStoneWhite.png" 
+            alt="Khaan Stone" 
             className="brand-logo-img"
           />
-          <div className="logo-text">
-            <span className="logo-main">KHAAN STONE</span>
-            <span className="logo-tagline">HARDSCAPE</span>
-          </div>
         </button>
 
         {/* Desktop Navigation */}
@@ -93,14 +89,10 @@ export default function Navbar({ activeView, setActiveView }) {
         <div className="mobile-drawer-header">
           <div className="mobile-drawer-brand">
             <img 
-              src="/logo/logo.svg" 
-              alt="Khaan Stone Logo" 
+              src="/logo/KhaanStoneWhite.png" 
+              alt="Khaan Stone" 
               className="mobile-drawer-logo-img"
             />
-            <div className="logo-text">
-              <span className="logo-main">KHAAN STONE</span>
-              <span className="logo-tagline">HARDSCAPE</span>
-            </div>
           </div>
           <button 
             className="mobile-drawer-close"

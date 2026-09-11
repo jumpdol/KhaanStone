@@ -9,12 +9,11 @@ export default function Footer({ onNavClick }) {
           <div className="footer-brand-col">
             <div className="footer-brand-logo-wrap">
               <img 
-                src="/logo/logo.svg" 
+                src="/logo/KhaanStoneWhite.png" 
                 alt="Khaan Stone" 
                 className="footer-brand-logo-img" 
               />
               <div className="footer-brand-text">
-                <span className="footer-brand-name">KHAAN STONE</span>
                 <span className="footer-brand-tagline">Hardscape &amp; Stone Construction • Vancouver, Abbotsford, Chilliwack &amp; Fraser Valley</span>
               </div>
             </div>

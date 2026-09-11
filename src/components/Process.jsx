@@ -37,6 +37,11 @@ export default function Process({ onContactClick }) {
     <div className="subpage-view process-page animate-fade-in">
       <div className="subpage-hero">
         <div className="subpage-hero-inner">
+          <div className="brand-tri-bar" style={{ justifyContent: 'center' }}>
+            <span className="bar-sand"></span>
+            <span className="bar-terracotta"></span>
+            <span className="bar-slate"></span>
+          </div>
           <span className="subpage-kicker">METICULOUS EXECUTION</span>
           <h1 className="subpage-title">Our Process</h1>
         </div>
@@ -52,16 +57,17 @@ export default function Process({ onContactClick }) {
         <div className="process-steps-list">
           {STEPS.map((step, index) => {
             const Icon = step.icon;
+            const colorClass = index === 0 ? 'step-sand' : index === 1 ? 'step-terracotta' : index === 2 ? 'step-slate' : 'step-tri';
             return (
-              <div key={step.num} className="process-step-row">
+              <div key={step.num} className={`process-step-row ${colorClass}`}>
                 <div className="process-step-num-col">
-                  <span className="step-huge-num">{step.num}</span>
+                  <span className={`step-huge-num num-${colorClass}`}>{step.num}</span>
                   <div className="step-num-line"></div>
                 </div>
 
-                <div className="process-step-body">
+                <div className={`process-step-body body-${colorClass}`}>
                   <div className="process-step-info">
-                    <div className="step-icon-badge">
+                    <div className={`step-icon-badge badge-${colorClass}`}>
                       <Icon size={22} />
                     </div>
                     <h3 className="process-step-title">{step.title}</h3>

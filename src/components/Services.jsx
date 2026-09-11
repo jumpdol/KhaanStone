@@ -39,6 +39,11 @@ export default function Services({ onContactClick }) {
       {/* Page Header */}
       <div className="subpage-hero">
         <div className="subpage-hero-inner">
+          <div className="brand-tri-bar" style={{ justifyContent: 'center' }}>
+            <span className="bar-sand"></span>
+            <span className="bar-terracotta"></span>
+            <span className="bar-slate"></span>
+          </div>
           <span className="subpage-kicker">SERVICES &amp; SCOPE OF WORK</span>
           <h1 className="subpage-title">Hardscape &amp; Stone Work</h1>
         </div>
@@ -48,29 +53,31 @@ export default function Services({ onContactClick }) {
         {/* Filter / Toggle Tabs */}
         <div className="hardscape-tab-bar">
           <button 
-            className={`hardscape-tab-btn ${activeTab === 'all' ? 'tab-active' : ''}`}
+            className={`hardscape-tab-btn tab-btn-all ${activeTab === 'all' ? 'tab-active' : ''}`}
             onClick={() => setActiveTab('all')}
           >
             All Services
           </button>
           <button 
-            className={`hardscape-tab-btn ${activeTab === 'residential' ? 'tab-active' : ''}`}
+            className={`hardscape-tab-btn tab-btn-res ${activeTab === 'residential' ? 'tab-active' : ''}`}
             onClick={() => setActiveTab('residential')}
           >
-            Residential
+            <span className="tab-pill-dot dot-sand"></span>
+            <span>Residential</span>
           </button>
           <button 
-            className={`hardscape-tab-btn ${activeTab === 'commercial' ? 'tab-active' : ''}`}
+            className={`hardscape-tab-btn tab-btn-com ${activeTab === 'commercial' ? 'tab-active' : ''}`}
             onClick={() => setActiveTab('commercial')}
           >
-            Commercial
+            <span className="tab-pill-dot dot-terracotta"></span>
+            <span>Commercial</span>
           </button>
         </div>
 
         <div className="hardscape-sectors-grid">
           {/* Residential Section */}
           {(activeTab === 'all' || activeTab === 'residential') && (
-            <div className="hardscape-sector-card">
+            <div className="hardscape-sector-card sector-card-residential">
               <div className="sector-image-frame">
                 <img 
                   src="/houston1.jpg" 
@@ -78,22 +85,28 @@ export default function Services({ onContactClick }) {
                   className="sector-img"
                   loading="lazy"
                 />
-                <div className="sector-image-badge">Residential</div>
+                <div className="sector-image-badge badge-sand">Residential</div>
               </div>
 
               <div className="sector-body">
-                <h2 className="sector-title">RESIDENTIAL</h2>
+                <div className="sector-header-row">
+                  <h2 className="sector-title title-sand">RESIDENTIAL</h2>
+                  <div className="sector-color-strip strip-sand"></div>
+                </div>
                 <p className="sector-desc">
                   Custom residential masonry, estate stone entryways, driveway paving, and private landscape structures.
                 </p>
 
                 <ul className="sector-bullet-list">
-                  {RESIDENTIAL_SERVICES.map((item, idx) => (
-                    <li key={idx} className="sector-bullet-item">
-                      <span className="bullet-dot">•</span>
-                      <span className="bullet-text">{item}</span>
-                    </li>
-                  ))}
+                  {RESIDENTIAL_SERVICES.map((item, idx) => {
+                    const dotColor = idx % 3 === 0 ? 'bullet-sand' : idx % 3 === 1 ? 'bullet-terracotta' : 'bullet-slate';
+                    return (
+                      <li key={idx} className="sector-bullet-item">
+                        <span className={`bullet-dot ${dotColor}`}>•</span>
+                        <span className="bullet-text">{item}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <button 
@@ -109,7 +122,7 @@ export default function Services({ onContactClick }) {
 
           {/* Commercial Section */}
           {(activeTab === 'all' || activeTab === 'commercial') && (
-            <div className="hardscape-sector-card">
+            <div className="hardscape-sector-card sector-card-commercial">
               <div className="sector-image-frame">
                 <img 
                   src="/houston6.jpg" 
@@ -117,22 +130,28 @@ export default function Services({ onContactClick }) {
                   className="sector-img"
                   loading="lazy"
                 />
-                <div className="sector-image-badge">Commercial</div>
+                <div className="sector-image-badge badge-slate">Commercial</div>
               </div>
 
               <div className="sector-body">
-                <h2 className="sector-title">COMMERCIAL</h2>
+                <div className="sector-header-row">
+                  <h2 className="sector-title title-terracotta">COMMERCIAL</h2>
+                  <div className="sector-color-strip strip-slate"></div>
+                </div>
                 <p className="sector-desc">
                   Large-scale structural masonry, commercial plaza pavers, building facings, and engineered retaining systems.
                 </p>
 
                 <ul className="sector-bullet-list">
-                  {COMMERCIAL_SERVICES.map((item, idx) => (
-                    <li key={idx} className="sector-bullet-item">
-                      <span className="bullet-dot">•</span>
-                      <span className="bullet-text">{item}</span>
-                    </li>
-                  ))}
+                  {COMMERCIAL_SERVICES.map((item, idx) => {
+                    const dotColor = idx % 3 === 0 ? 'bullet-terracotta' : idx % 3 === 1 ? 'bullet-slate' : 'bullet-sand';
+                    return (
+                      <li key={idx} className="sector-bullet-item">
+                        <span className={`bullet-dot ${dotColor}`}>•</span>
+                        <span className="bullet-text">{item}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 <button 

@@ -120,6 +120,11 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
       <div className="portfolio-container">
         {/* Section Heading */}
         <div className="portfolio-header">
+          <div className="brand-tri-bar" style={{ justifyContent: 'center' }}>
+            <span className="bar-sand"></span>
+            <span className="bar-terracotta"></span>
+            <span className="bar-slate"></span>
+          </div>
           <h2 className="portfolio-title">
             {isFullPage ? 'Our Portfolio' : 'Recent Projects'}
           </h2>
@@ -131,15 +136,15 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
           {isFullPage && (
             <div className="portfolio-filter-bar">
               {[
-                { id: 'all', label: 'All Projects' },
-                { id: 'cladding', label: 'Architectural Cladding' },
-                { id: 'retaining', label: 'Retaining Walls' },
-                { id: 'paving', label: 'Paving & Entryways' },
-                { id: 'commercial', label: 'Commercial' },
+                { id: 'all', label: 'All Projects', color: 'slate' },
+                { id: 'cladding', label: 'Architectural Cladding', color: 'sand' },
+                { id: 'retaining', label: 'Retaining Walls', color: 'terracotta' },
+                { id: 'paving', label: 'Paving & Entryways', color: 'slate' },
+                { id: 'commercial', label: 'Commercial', color: 'terracotta' },
               ].map(tab => (
                 <button
                   key={tab.id}
-                  className={`filter-btn ${activeFilter === tab.id ? 'filter-active' : ''}`}
+                  className={`filter-btn filter-btn-${tab.color} ${activeFilter === tab.id ? 'filter-active' : ''}`}
                   onClick={() => setActiveFilter(tab.id)}
                 >
                   {tab.label}
@@ -151,30 +156,33 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
 
         {/* Projects Grid */}
         <div className="projects-grid">
-          {filteredProjects.map((project, idx) => (
-            <div 
-              key={project.id} 
-              className="project-card"
-              onClick={() => openLightbox(idx)}
-            >
-              <div className="project-image-wrap">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="project-image"
-                  loading="lazy"
-                />
-                <div className="project-overlay">
-                  <span className="project-category-tag">{project.categoryLabel}</span>
-                  <h3 className="project-card-title">{project.title}</h3>
-                  <span className="project-card-location">{project.location}</span>
-                  <div className="project-view-icon">
-                    <Maximize2 size={18} />
+          {filteredProjects.map((project, idx) => {
+            const cardColor = idx % 3 === 0 ? 'card-border-sand' : idx % 3 === 1 ? 'card-border-terracotta' : 'card-border-slate';
+            return (
+              <div 
+                key={project.id} 
+                className={`project-card ${cardColor}`}
+                onClick={() => openLightbox(idx)}
+              >
+                <div className="project-image-wrap">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="project-image"
+                    loading="lazy"
+                  />
+                  <div className="project-overlay">
+                    <span className="project-category-tag">{project.categoryLabel}</span>
+                    <h3 className="project-card-title">{project.title}</h3>
+                    <span className="project-card-location">{project.location}</span>
+                    <div className="project-view-icon">
+                      <Maximize2 size={18} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Explore All CTA for Home page view */}

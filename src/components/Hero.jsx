@@ -7,6 +7,8 @@ const SLIDES = [
     image: '/houston1.jpg',
     title: 'The Pride of Meticulous\nCraftsmanship',
     subtitle: 'VANCOUVER & SEA-TO-SKY',
+    colorTheme: 'sand',
+    tagColor: 'var(--brand-sand)',
     alt: 'Luxury architectural stone masonry by Khaan Stone'
   },
   {
@@ -14,6 +16,8 @@ const SLIDES = [
     image: '/houston3.jpg',
     title: 'Providing Modern Precision Finishes\nWith Old World Masonry Traditions',
     subtitle: 'ENGINEERED ARCHITECTURE',
+    colorTheme: 'terracotta',
+    tagColor: 'var(--brand-terracotta)',
     alt: 'Custom stone retaining walls and structural masonry'
   },
   {
@@ -21,6 +25,8 @@ const SLIDES = [
     image: '/houston5.jpg',
     title: 'Delivering Finished Work That Infuses\nDurability With Artistic Expression',
     subtitle: 'COMMERCIAL & RESIDENTIAL',
+    colorTheme: 'slate',
+    tagColor: 'var(--brand-slate-light)',
     alt: 'Granite and basalt stone entryways and courtyards'
   }
 ];
@@ -63,16 +69,22 @@ export default function Hero({ onExplore }) {
           return (
             <div
               key={slide.id}
-              className={`hero-slide ${isActive ? 'slide-active' : ''}`}
+              className={`hero-slide ${isActive ? 'slide-active' : ''} slide-theme-${slide.colorTheme}`}
               style={{
-                backgroundImage: `linear-gradient(rgba(10, 15, 20, 0.42), rgba(10, 15, 20, 0.58)), url(${slide.image})`
+                backgroundImage: `linear-gradient(rgba(10, 15, 20, 0.42), rgba(10, 15, 20, 0.62)), url(${slide.image})`
               }}
               role="group"
               aria-roledescription="slide"
               aria-label={`Slide ${index + 1} of ${SLIDES.length}`}
             >
               <div className="hero-slide-content">
-                <span className="hero-slide-tag">{slide.subtitle}</span>
+                <div className="hero-tag-wrap">
+                  <span className="hero-tri-dot" style={{ backgroundColor: slide.tagColor }}></span>
+                  <span className="hero-slide-tag" style={{ color: slide.tagColor }}>
+                    {slide.subtitle}
+                  </span>
+                </div>
+
                 <h1 className="hero-slide-title">
                   {slide.title.split('\n').map((line, lIdx) => (
                     <span key={lIdx} className="hero-title-line">
@@ -112,12 +124,12 @@ export default function Hero({ onExplore }) {
         </button>
       </div>
 
-      {/* Slide Indicators / Dots */}
+      {/* 3 Color-Coded Slide Indicators / Dots */}
       <div className="slider-indicators">
-        {SLIDES.map((_, idx) => (
+        {SLIDES.map((slide, idx) => (
           <button
             key={idx}
-            className={`slider-indicator-dot ${idx === currentSlide ? 'dot-active' : ''}`}
+            className={`slider-indicator-dot dot-${slide.colorTheme} ${idx === currentSlide ? 'dot-active' : ''}`}
             onClick={() => setCurrentSlide(idx)}
             aria-label={`Go to slide ${idx + 1}`}
           />
