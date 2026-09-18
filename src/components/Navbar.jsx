@@ -29,7 +29,7 @@ export default function Navbar({ activeView, setActiveView }) {
       <div className="refined-header-inner">
         <a href="#home" className="brand-lockup" aria-label="Khaan Stone home" onClick={() => go('home')}>
           <img src="/logo/KhaanStoneWhite.png" alt="" />
-          <span className="brand-wordmark">KHAAN STONE<small>MASONRY & HARDSCAPING</small></span>
+
         </a>
         <nav className="refined-nav" aria-label="Main navigation">{items.map(([id,label]) => <a key={id} href={`#${id}`} onClick={() => go(id)} aria-current={activeView === id ? 'page' : undefined}>{label}</a>)}</nav>
         <div className="refined-actions">
