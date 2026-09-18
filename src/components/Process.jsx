@@ -4,28 +4,28 @@ import { Compass, Layers, Hammer, CheckSquare, ArrowRight } from 'lucide-react';
 const STEPS = [
   {
     num: '01',
-    title: 'Consultation & Site Feasibility',
+    title: 'Your ideas & the site',
     icon: Compass,
     description: 'We evaluate grading, geotechnical requirements, architectural blueprints, and stone material choices with project stakeholders.',
     image: '/houston8.jpg'
   },
   {
     num: '02',
-    title: 'Engineering & Precision Sourcing',
+    title: 'Planning & materials',
     icon: Layers,
     description: 'Structural load calculations, drainage design, and direct quarry sourcing of premium granite, basalt, slate, or manufactured masonry.',
     image: '/houston4.jpg'
   },
   {
     num: '03',
-    title: 'Groundwork & Structural Base',
+    title: 'A solid foundation',
     icon: Hammer,
     description: 'Deep excavation, compacted aggregate foundation, geotextile membrane placement, and integrated subsurface drainage systems.',
     image: '/houston5.jpg'
   },
   {
     num: '04',
-    title: 'Master Installation & Hand Finishing',
+    title: 'Installation & finishing',
     icon: CheckSquare,
     description: 'Meticulous stone placement, precision hand chiseling, seamless mortar or dry-stack joints, and architectural sealant application.',
     image: '/houston3.jpg'
@@ -42,7 +42,7 @@ export default function Process({ onContactClick }) {
             <span className="bar-terracotta"></span>
             <span className="bar-slate"></span>
           </div>
-          <span className="subpage-kicker">METICULOUS EXECUTION</span>
+          <span className="subpage-kicker">FROM FIRST CONVERSATION TO FINAL DETAIL</span>
           <h1 className="subpage-title">Our Process</h1>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function Process({ onContactClick }) {
       <div className="subpage-content-container">
         <div className="process-intro-text">
           <p>
-            Every enduring stone structure requires rigorous engineering and old-world craftsmanship. Our streamlined 4-phase methodology guarantees structural integrity and flawless aesthetic delivery.
+            Every enduring stone structure requires rigorous engineering and old-world craftsmanship. Our four-step process keeps the work clear, from the first site conversation to the finishing details.
           </p>
         </div>
 

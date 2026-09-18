@@ -12,7 +12,7 @@ export default function About({ onContactClick }) {
             <span className="bar-terracotta"></span>
             <span className="bar-slate"></span>
           </div>
-          <span className="subpage-kicker">OUR HERITAGE &amp; VALUES</span>
+          <span className="subpage-kicker">THE PEOPLE BEHIND THE STONE</span>
           <h1 className="subpage-title">About Khaan Stone</h1>
         </div>
       </div>
@@ -21,16 +21,16 @@ export default function About({ onContactClick }) {
         {/* Split Section: Integrity */}
         <div className="about-split-grid">
           <div className="about-text-column">
-            <h2 className="about-heading-accent">INTEGRITY &amp; MASTERY</h2>
+            <h2 className="about-heading-accent">Care in every detail.</h2>
             <div className="about-narrative">
               <p>
-                Since our inception, Khaan Stone has progressively become one of British Columbia’s premier leaders in high-end hardscape construction and custom stone masonry.
+                Khaan Stone is a Vancouver-based masonry and hardscaping company working with homeowners and builders from Whistler to Chilliwack.
               </p>
               <p>
                 From private residential courtyards in West Vancouver, Vancouver, Abbotsford, and Chilliwack to large-scale commercial developments across the Lower Mainland and Fraser Valley, our performance speaks for itself. We collaborate seamlessly with leading architects, builders, and general contractors.
               </p>
               <p>
-                Each project brings unique terrain and architectural requirements. Our goal is to translate the vision into timeless stone structures built to endure Pacific Northwest weather for generations.
+                Each project brings unique terrain and architectural requirements. We consider how your space will be used, how water moves through the site, and how the materials fit your home and landscape.
               </p>
             </div>
 

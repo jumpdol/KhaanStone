@@ -1,135 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone, ArrowUpRight } from 'lucide-react';
-
+const items = [['home','Home'],['hardscape','Services'],['portfolio','Our Work'],['process','Process'],['about','About']];
 export default function Navbar({ activeView, setActiveView }) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [open,setOpen] = useState(false);
+  const trigger = useRef(null);
+  const drawer = useRef(null);
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    drawer.current?.querySelector('button')?.focus();
+    const key = (e) => {
+      if(e.key === 'Escape') { setOpen(false); trigger.current?.focus(); }
+      if(e.key === 'Tab') {
+        const nodes = drawer.current.querySelectorAll('a,button');
+        const first = nodes[0], last = nodes[nodes.length-1];
+        if(e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        if(!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavClick = (viewId) => {
-    setActiveView(viewId);
-    setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'hardscape', label: 'Hardscape' },
-    { id: 'process', label: 'Process' },
-    { id: 'about', label: 'About' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
-  return (
-    <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
-      <div className="header-inner">
-        {/* Brand Logo with Official SVG */}
-        <button 
-          className="brand-logo-btn" 
-          onClick={() => handleNavClick('home')}
-          aria-label="Khaan Stone Home"
-        >
-          <img 
-            src="/logo/KhaanStoneWhite.png" 
-            alt="Khaan Stone" 
-            className="brand-logo-img"
-          />
-        </button>
-
-        {/* Desktop Navigation */}
-        <nav className="desktop-nav" aria-label="Main Navigation">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              className={`nav-link ${activeView === item.id ? 'active' : ''}`}
-              onClick={() => handleNavClick(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        {/* Header Actions */}
-        <div className="header-actions">
-          <a href="tel:2368632328" className="header-phone">
-            <Phone size={14} />
-            <span>(236) 863-2328</span>
-          </a>
-          
-          <button
-            className="btn-header-cta"
-            onClick={() => handleNavClick('contact')}
-          >
-            <span>Inquire</span>
-            <ArrowUpRight size={14} />
-          </button>
-
-          {/* Mobile Menu Trigger */}
-          <button
-            className="mobile-menu-trigger"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      <div className={`mobile-nav-drawer ${isMenuOpen ? 'drawer-open' : ''}`}>
-        <div className="mobile-drawer-header">
-          <div className="mobile-drawer-brand">
-            <img 
-              src="/logo/KhaanStoneWhite.png" 
-              alt="Khaan Stone" 
-              className="mobile-drawer-logo-img"
-            />
-          </div>
-          <button 
-            className="mobile-drawer-close"
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <X size={24} />
-          </button>
-        </div>
-
-        <div className="mobile-nav-links">
-          {navItems.map((item, idx) => (
-            <button
-              key={item.id}
-              className={`mobile-nav-link ${activeView === item.id ? 'active' : ''}`}
-              onClick={() => handleNavClick(item.id)}
-            >
-              <span className="mobile-nav-index">0{idx + 1}</span>
-              <span className="mobile-nav-title">{item.label}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="mobile-nav-footer">
-          <a href="tel:2368632328" className="mobile-phone-link">
-            <Phone size={16} /> (236) 863-2328
-          </a>
-          <button
-            className="btn-luxury-primary"
-            style={{ width: '100%', justifyContent: 'center' }}
-            onClick={() => handleNavClick('contact')}
-          >
-            <span>Request Site Consultation</span>
-            <ArrowUpRight size={16} />
-          </button>
+    document.addEventListener('keydown',key);
+    return () => { document.body.style.overflow = previous; document.removeEventListener('keydown',key); };
+  },[open]);
+  const go = (view) => { setOpen(false); setActiveView(view); };
+  return <>
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <header className="refined-header">
+      <div className="refined-header-inner">
+        <a href="#home" className="brand-lockup" aria-label="Khaan Stone home" onClick={() => go('home')}>
+          <img src="/logo/KhaanStoneWhite.png" alt="" />
+          <span className="brand-wordmark">KHAAN STONE<small>MASONRY & HARDSCAPING</small></span>
+        </a>
+        <nav className="refined-nav" aria-label="Main navigation">{items.map(([id,label]) => <a key={id} href={`#${id}`} onClick={() => go(id)} aria-current={activeView === id ? 'page' : undefined}>{label}</a>)}</nav>
+        <div className="refined-actions">
+          <a href="tel:+12368632328" className="nav-call" aria-label="Call Khaan Stone"><Phone size={18}/><span>(236) 863-2328</span></a>
+          <a href="#contact" className="action-button header-quote" onClick={() => go('contact')}>Get a quote <ArrowUpRight size={17}/></a>
+          <button className="refined-menu" ref={trigger} onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-navigation" aria-label="Open menu"><Menu/></button>
         </div>
       </div>
     </header>
-  );
+    {open && <div className="menu-backdrop" onClick={() => {setOpen(false); trigger.current?.focus();}}><div className="refined-drawer" id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Navigation" ref={drawer} onClick={e=>e.stopPropagation()}><button className="drawer-close" onClick={() => {setOpen(false); trigger.current?.focus();}} aria-label="Close menu"><X/></button><span className="eyebrow">KHAAN STONE</span><nav>{[...items,['contact','Get a quote']].map(([id,label],i)=><a key={id} href={`#${id}`} onClick={()=>go(id)}><small>0{i+1}</small>{label}</a>)}</nav><a href="tel:+12368632328">(236) 863-2328</a><p>Vancouver-based.<br/>Whistler to Chilliwack.</p></div></div>}
+  </>;
 }

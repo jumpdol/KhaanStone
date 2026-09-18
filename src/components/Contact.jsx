@@ -1,74 +1,13 @@
-import React from 'react';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
-
+import { useState } from 'react';
+import { Phone, Mail, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 export default function Contact() {
-  return (
-    <div className="subpage-view contact-page animate-fade-in" id="contact">
-      {/* Hero */}
-      <div className="subpage-hero">
-        <div className="subpage-hero-inner">
-          <div className="brand-tri-bar" style={{ justifyContent: 'center' }}>
-            <span className="bar-sand"></span>
-            <span className="bar-terracotta"></span>
-            <span className="bar-slate"></span>
-          </div>
-          <span className="subpage-kicker">GET IN TOUCH</span>
-          <h1 className="subpage-title">Contact Information</h1>
-        </div>
-      </div>
-
-      <div className="subpage-content-container">
-        <div className="contact-focused-container">
-          <div className="contact-info-panel">
-            <h2 className="contact-panel-title">Let's Build Something Enduring</h2>
-            <p className="contact-panel-desc">
-              Whether you have architectural blueprints ready for tender or need direct on-site consultation for an upcoming residential or commercial hardscape project, our team is here to assist.
-            </p>
-
-            <div className="contact-details-grid">
-              <a href="tel:2368632328" className="contact-detail-item contact-item-terracotta">
-                <div className="contact-icon-box box-terracotta">
-                  <Phone size={22} />
-                </div>
-                <div>
-                  <span className="contact-label">Telephone</span>
-                  <span className="contact-value">(236) 863-2328</span>
-                </div>
-              </a>
-
-              <a href="mailto:khaanstone@gmail.com" className="contact-detail-item contact-item-sand">
-                <div className="contact-icon-box box-sand">
-                  <Mail size={22} />
-                </div>
-                <div>
-                  <span className="contact-label">Email Inquiries</span>
-                  <span className="contact-value">khaanstone@gmail.com</span>
-                </div>
-              </a>
-
-              <div className="contact-detail-item contact-item-slate">
-                <div className="contact-icon-box box-slate">
-                  <MapPin size={22} />
-                </div>
-                <div>
-                  <span className="contact-label">Service Regions</span>
-                  <span className="contact-value">Vancouver • Abbotsford • Chilliwack • Fraser Valley • Sea-to-Sky</span>
-                </div>
-              </div>
-
-              <div className="contact-detail-item contact-item-tri">
-                <div className="contact-icon-box box-tri">
-                  <Clock size={22} />
-                </div>
-                <div>
-                  <span className="contact-label">Operating Hours</span>
-                  <span className="contact-value">Monday – Friday: 7:00 AM – 5:30 PM</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+ const [prepared,setPrepared] = useState(false);
+ function prepareEmail(e) {
+  e.preventDefault();
+  const values = Object.fromEntries(new FormData(e.currentTarget));
+  const body = `Hello Khaan Stone,\n\nI'd like to discuss a project.\n\nName: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone || 'Not provided'}\nLocation: ${values.city}\nProject: ${values.service}\n\n${values.message}\n\nThank you,\n${values.name}`;
+  window.location.href = `mailto:khaanstone@gmail.com?subject=${encodeURIComponent(`${values.service} inquiry — ${values.city}`)}&body=${encodeURIComponent(body)}`;
+  setPrepared(true);
+ }
+ return <div className="subpage-view contact-page" id="contact"><div className="subpage-hero"><div className="subpage-hero-inner"><span className="subpage-kicker">LET'S BUILD SOMETHING LASTING</span><h1 className="subpage-title">Your project starts here.</h1></div></div><div className="subpage-content-container contact-layout"><div className="contact-lead"><h2>A little about your space.<br/>A conversation about what's next.</h2><p>Have an idea, a few measurements or a set of plans? Tell us what you have in mind. We work with homeowners and builders on residential and commercial projects.</p><div className="contact-direct"><Phone size={20}/><div><small>GIVE US A CALL</small><a href="tel:+12368632328">(236) 863-2328</a></div></div><div className="contact-direct"><Mail size={20}/><div><small>WRITE TO US</small><a href="mailto:khaanstone@gmail.com">khaanstone@gmail.com</a></div></div><div className="contact-direct"><MapPin size={20}/><div><small>WHERE WE WORK</small><p>Based in Vancouver.<br/>Whistler, Sea-to-Sky, Metro Vancouver<br/>and the Fraser Valley to Chilliwack.</p></div></div><div className="contact-direct"><Clock size={20}/><div><small>OFFICE HOURS</small><p>Monday–Friday · 7:00 AM–5:30 PM</p></div></div></div><form className="quote-form" onSubmit={prepareEmail}><h2>Tell us about your project</h2><div className="form-grid"><label>Your name<input name="name" autoComplete="name" required maxLength={100}/></label><label>Email address<input name="email" type="email" autoComplete="email" required maxLength={200}/></label><label>Phone <span className="sr-only">optional</span><input name="phone" type="tel" autoComplete="tel" placeholder="Optional" maxLength={40}/></label><label>Project city<input name="city" autoComplete="address-level2" required placeholder="e.g. North Vancouver" maxLength={100}/></label><label className="form-full">What are you planning?<select name="service" required defaultValue=""><option value="" disabled>Select a service</option><option>Patio or pathway</option><option>Retaining wall</option><option>Driveway or entryway</option><option>Stone masonry or cladding</option><option>Commercial project</option><option>Something else</option></select></label><label className="form-full">A few project details<textarea name="message" required maxLength={4000} placeholder="Tell us about your space, approximate size and preferred timing."/></label></div><p className="form-note">This prepares a draft in your email app. Review it, attach any photos or plans, and send it when you're ready.</p><button className="action-button" type="submit">Prepare project email <ArrowUpRight size={18}/></button>{prepared && <p className="quote-feedback" role="status">Your email draft is ready to open. Nothing has been sent from this website. If your email app didn't open, contact us at <a href="mailto:khaanstone@gmail.com">khaanstone@gmail.com</a> or call (236) 863-2328.</p>}</form></div></div>;
 }

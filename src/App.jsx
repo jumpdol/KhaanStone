@@ -10,18 +10,33 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './App.css';
 
+const VALID_VIEWS = ['home', 'process', 'about', 'hardscape', 'services', 'systems', 'portfolio', 'contact'];
+function readView() {
+  const view = window.location.hash.slice(1);
+  return VALID_VIEWS.includes(view) ? view : 'home';
+}
+
 export default function App() {
-  const [activeView, setActiveView] = useState('home');
+  const [activeView, updateView] = useState(readView);
+  const setActiveView = (view) => {
+    window.location.hash = view;
+    updateView(view);
+  };
 
   useEffect(() => {
-    // Scroll to top when switching views
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const handleHash = () => updateView(readView());
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [activeView]);
 
   const handleExplore = () => {
     const el = document.getElementById('statement');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     }
   };
 
@@ -29,11 +44,11 @@ export default function App() {
     <div className="site-wrapper">
       <Navbar activeView={activeView} setActiveView={setActiveView} />
       
-      <main className="main-viewport">
+      <main className="main-viewport" id="main-content">
         {activeView === 'home' && (
           <div className="home-view animate-fade-in">
-            <Hero onExplore={handleExplore} />
-            <Statement />
+            <Hero onExplore={handleExplore} onNavigate={setActiveView} />
+            <Statement onNavigate={setActiveView} />
             <Portfolio 
               isFullPage={false} 
               onNavigatePortfolio={() => setActiveView('portfolio')} 

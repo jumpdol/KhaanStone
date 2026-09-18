@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, Maximize2, ArrowRight } from 'lucide-react';
 
 export const PROJECTS = [
@@ -88,6 +88,25 @@ export const PROJECTS = [
 export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
+  const modalRef = useRef(null);
+  const returnFocus = useRef(null);
+  useEffect(() => {
+    if (selectedProjectIndex === null) return;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    modalRef.current?.querySelector('button')?.focus();
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setSelectedProjectIndex(null);
+      if (e.key === 'Tab') {
+        const buttons = modalRef.current.querySelectorAll('button');
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if(e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        if(!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener('keydown',handleKey);
+    return () => { document.body.style.overflow = overflow; document.removeEventListener('keydown',handleKey); returnFocus.current?.focus(); };
+  }, [selectedProjectIndex !== null]);
 
   const filteredProjects = isFullPage
     ? activeFilter === 'all'
@@ -96,6 +115,7 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
     : PROJECTS.slice(0, 6);
 
   const openLightbox = (index) => {
+    returnFocus.current = document.activeElement;
     setSelectedProjectIndex(index);
   };
 
@@ -126,10 +146,10 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
             <span className="bar-slate"></span>
           </div>
           <h2 className="portfolio-title">
-            {isFullPage ? 'Our Portfolio' : 'Recent Projects'}
+            {isFullPage ? 'Our Portfolio' : 'A closer look at our work'}
           </h2>
           <p className="portfolio-subtitle">
-            A selection of custom residential and commercial stone masonry installations across Metro Vancouver.
+            Explore stonework, outdoor spaces and the details that bring them together.
           </p>
 
           {/* Filter Pills for Full Page */}
@@ -162,6 +182,10 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
               <div 
                 key={project.id} 
                 className={`project-card ${cardColor}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${project.title}`}
+                onKeyDown={(e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx); } }}
                 onClick={() => openLightbox(idx)}
               >
                 <div className="project-image-wrap">
@@ -202,7 +226,7 @@ export default function Portfolio({ isFullPage = false, onNavigatePortfolio }) {
       {/* Fullscreen Lightbox Modal */}
       {currentProject && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
-          <div className="lightbox-container" onClick={(e) => e.stopPropagation()}>
+          <div className="lightbox-container" ref={modalRef} role="dialog" aria-modal="true" aria-label={currentProject.title} onClick={(e) => e.stopPropagation()}>
             <button 
               className="lightbox-close-btn"
               onClick={closeLightbox}
